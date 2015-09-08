@@ -133,9 +133,17 @@ class Applicant
 					{
 						$val_errors = $errors_array[0];
 
-						for ($i=0; $i < count($val_errors); $i++)
-						{ 
-							$fields[] = $field . ' ' . $val_errors[$i];
+						if (is_array($val_errors))
+						{
+							for ($i=0; $i < count($val_errors); $i++)
+							{
+								print_r($val_errors[$i]);
+								$fields[] = $field . ' ' . $val_errors[$i];
+							}
+						}
+						else
+						{
+							$fields[] = $field . ' ' . $val_errors;
 						}
 					}
 
@@ -222,9 +230,16 @@ class Applicant
 		return $this->gender;
 	}
 
-	public function setGender($gener)
+	/**
+	 * Sets the gender of the applicant.
+	 * 
+	 * Valid values are 'male', 'Male', 'female', or 'Female'
+	 * 
+	 * @param string $gender The gender of the applicant
+	 */
+	public function setGender($gender)
 	{
-		$this->gener = $gender;
+		$this->gender = $gender;
 	}
 
 	public function getDob()
@@ -262,6 +277,14 @@ class Applicant
 		return $this->country;
 	}
 
+	/**
+	 * Set the country for the applicant.
+	 * 
+	 * Must be a three letter ISO country code.
+	 * https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
+	 * 
+	 * @param string $country The country of residence for the applicant.
+	 */
 	public function setCountry($country)
 	{
 		$this->country = $country;

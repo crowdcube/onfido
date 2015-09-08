@@ -286,6 +286,224 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
 		$applicant->save($token);
 	}
 
+	/**
+	 * @expectedException Onfido\Exception\InvalidRequestException
+	 */
+	public function testCreateApplicantWithGenderM()
+	{
+		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
+
+		$applicant = $this->getSUT();
+		$gender = 'M';
+
+		$applicant->setGender($gender);
+		$this->assertEquals($gender, $applicant->getGender());
+
+		$applicant->save($token);
+	}
+
+	/**
+	 * @expectedException Onfido\Exception\InvalidRequestException
+	 */
+	public function testCreateApplicantWithGenderLittleM()
+	{
+		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
+
+		$applicant = $this->getSUT();
+		$gender = 'm';
+
+		$applicant->setGender($gender);
+		$this->assertEquals($gender, $applicant->getGender());
+
+		$applicant->save($token);
+	}
+
+	public function testCreateApplicantWithGenderMale()
+	{
+		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
+
+		$applicant = $this->getSUT();
+		$gender = 'Male';
+
+		$applicant->setGender($gender);
+		$this->assertEquals($gender, $applicant->getGender());
+
+		$applicant->save($token);
+	}
+
+	public function testCreateApplicantWithGenderLittleMale()
+	{
+		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
+
+		$applicant = $this->getSUT();
+		$gender = 'male';
+
+		$applicant->setGender($gender);
+		$this->assertEquals($gender, $applicant->getGender());
+
+		$applicant->save($token);
+	}
+
+	/**
+	 * @expectedException Onfido\Exception\InvalidRequestException
+	 */
+	public function testCreateApplicantWithGenderF()
+	{
+		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
+
+		$applicant = $this->getSUT();
+		$gender = 'F';
+
+		$applicant->setGender($gender);
+		$this->assertEquals($gender, $applicant->getGender());
+
+		$applicant->save($token);
+	}
+
+	/**
+	 * @expectedException Onfido\Exception\InvalidRequestException
+	 */
+	public function testCreateApplicantWithGenderLittleF()
+	{
+		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
+
+		$applicant = $this->getSUT();
+		$gender = 'f';
+
+		$applicant->setGender($gender);
+		$this->assertEquals($gender, $applicant->getGender());
+
+		$applicant->save($token);
+	}
+
+	public function testCreateApplicantWithGenderFemale()
+	{
+		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
+
+		$applicant = $this->getSUT();
+		$gender = 'Female';
+
+		$applicant->setGender($gender);
+		$this->assertEquals($gender, $applicant->getGender());
+
+		$applicant->save($token);
+	}
+
+	public function testCreateApplicantWithGenderLittleFemale()
+	{
+		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
+
+		$applicant = $this->getSUT();
+		$gender = 'female';
+
+		$applicant->setGender($gender);
+		$this->assertEquals($gender, $applicant->getGender());
+
+		$applicant->save($token);
+	}
+
+	/**
+	 * @expectedException Onfido\Exception\InvalidRequestException
+	 */
+	public function testCreateApplicantWithGenderTestGener()
+	{
+		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
+
+		$applicant = $this->getSUT();
+		$gender = 'testGender';
+
+		$applicant->setGender($gender);
+		$this->assertEquals($gender, $applicant->getGender());
+
+		$applicant->save($token);
+	}
+
+	/**
+	 * If saving an applicant in the USA, an email address is required.
+	 * 
+	 * @expectedException Onfido\Exception\InvalidRequestException
+	 */
+	public function testCreateApplicantWithCountryUSA()
+	{
+		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
+
+		$applicant = $this->getSUT();
+		$country = 'usa';
+
+		$applicant->setCountry($country);
+		$this->assertEquals($country, $applicant->getCountry());
+
+		$applicant->save($token);
+	}
+
+	public function testCreateApplicantWithCountryUSAEmail()
+	{
+		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
+
+		$faker = \Faker\Factory::create();
+
+		$applicant = $this->getSUT();
+		$email = $faker->email;
+		$country = 'usa';
+
+		$applicant->setCountry($country);
+		$applicant->setEmail($email);
+		$this->assertEquals($country, $applicant->getCountry());
+
+		$applicant->save($token);
+	}
+
+		public function testCreateApplicantWithCountryBigUSAEmail()
+	{
+		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
+
+		$faker = \Faker\Factory::create();
+
+		$applicant = $this->getSUT();
+		$email = $faker->email;
+		$country = 'USA';
+
+		$applicant->setCountry($country);
+		$applicant->setEmail($email);
+		$this->assertEquals($country, $applicant->getCountry());
+
+		$applicant->save($token);
+	}
+
+	public function testCreateApplicantWithCountryUSAPeriodsEmail()
+	{
+		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
+
+		$faker = \Faker\Factory::create();
+
+		$applicant = $this->getSUT();
+		$email = $faker->email;
+		$country = 'U.S.A.';
+
+		$applicant->setCountry($country);
+		$applicant->setEmail($email);
+		$this->assertEquals($country, $applicant->getCountry());
+
+		$applicant->save($token);
+	}
+
+	public function testCreateApplicantWithCountryUSEmail()
+	{
+		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
+
+		$faker = \Faker\Factory::create();
+
+		$applicant = $this->getSUT();
+		$email = $faker->email;
+		$country = 'US';
+
+		$applicant->setCountry($country);
+		$applicant->setEmail($email);
+		$this->assertEquals($country, $applicant->getCountry());
+
+		$applicant->save($token);
+	}
+
 	private function getSUT()
 	{
 		$faker = \Faker\Factory::create();
