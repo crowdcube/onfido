@@ -1,0 +1,17 @@
+{
+    "name": "favor/onfido",
+    "description": "A library to interact with the Onfido REST API",
+    "license": "MIT",
+    "keywords": ["onfido"],
+    "require": {
+        "guzzlehttp/guzzle": "~6.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.0.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Onfido\\": "src/Onfido"
+        }
+    }
+}
