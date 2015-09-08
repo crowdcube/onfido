@@ -7,6 +7,7 @@ use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Exception\ClientException;
 use Onfido\Exception\ApplicantNotFoundException;
 use Onfido\Exception\ModelRetrievalException;
+use Onfido\Exception\InvalidRequestException;
 
 class Applicant
 {
@@ -17,6 +18,7 @@ class Applicant
 	protected $first_name;
 	protected $middle_name;
 	protected $last_name;
+	protected $email;
 	protected $gender;
 	protected $dob; // 'Y-m-d' format
 	protected $telephone;
@@ -89,7 +91,68 @@ class Applicant
 
 	public function save($authToken)
 	{
+		$client = new Client([
+			'base_uri' => 'https://api.onfido.com'
+		]);
+		
+		try
+		{
+			$response = $client->request('POST', "/v1/applicants", [
+				'headers' => [
+					'Authorization' => "Token token=$authToken"
+				],
+				'form_params' => [
+					'title' => $this->title,
+					'first_name' => $this->first_name,
+					'last_name' => $this->last_name,
+					'middle_name' => $this->middle_name,
+					'email' => $this->email,
+					'gender' => $this->gender,
+					'dob' => $this->dob,
+					'telephone' => $this->telephone,
+					'mobile' => $this->mobile,
+					'country' => $this->country,
+					'id_numbers' => $this->id_numbers,
+					'addresses' => $this->addresses
+				]
+			]);
+		}
+		catch (ClientException $e)
+		{
+			$body_json = json_decode((string) $e->getResponse()->getBody(), true);
 
+			if (array_key_exists('error', $body_json))
+			{
+				$error = $body_json['error'];
+
+				if ($error['type'] == 'validation_error')
+				{
+					$fields = [];
+
+					foreach ($error['fields'] as $field => $errors_array)
+					{
+						$val_errors = $errors_array[0];
+
+						for ($i=0; $i < count($val_errors); $i++)
+						{ 
+							$fields[] = $field . ' ' . $val_errors[$i];
+						}
+					}
+					print_r($fields);
+					throw new InvalidRequestException($fields, 'Could not save applicant. Invalid fields.', $e->getCode(), $e);
+				}
+				else
+				{
+					// Rethrow exception
+					throw $e;
+				}
+			}
+			else
+			{
+				// Rethrow exception
+				throw $e;
+			}
+		}
 	}
 
 	public function getId()
@@ -135,6 +198,11 @@ class Applicant
 	public function getLastName()
 	{
 		return $this->last_name;
+	}
+
+	public function getEmail()
+	{
+		return $this->email;
 	}
 
 	public function getGender()
