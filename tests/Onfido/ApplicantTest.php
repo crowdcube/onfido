@@ -17,18 +17,187 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
 
 	public function testSavingApplicant()
 	{
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
-		$first_name = 'testFirst';
-		$last_name = 'testLast';
-		$email = 'testEmail@gmail.com';
-		$dob = '2010-02-24';
+		$faker = \Faker\Factory::create();
 
-		$applicant = new Applicant($first_name, $last_name, $email, $dob);
+		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
+		$first_name = $faker->firstName;
+		$last_name = $faker->lastName;
+
+		$applicant = new Applicant($first_name, $last_name);
+
 		$this->assertEquals($first_name, $applicant->getFirstName());
 		$this->assertEquals($last_name, $applicant->getLastName());
-		$this->assertEquals($email, $applicant->getEmail());
-		$this->assertEquals($dob, $applicant->getDob());
 
 		$applicant->save($token);
 	}
+
+	/**
+	 * @expectedException Onfido\Exception\InvalidRequestException
+	 */
+	public function testSavingApplicantNullFirstName()
+	{
+		$faker = \Faker\Factory::create();
+
+		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
+		$first_name = null;
+		$last_name = $faker->lastName;
+
+		$applicant = new Applicant($first_name, $last_name);
+		$applicant->save($token);
+	}
+
+	/**
+	 * @expectedException Onfido\Exception\InvalidRequestException
+	 */
+	public function testSavingApplicantNullLastName()
+	{
+		$faker = \Faker\Factory::create();
+
+		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
+		$first_name = $faker->firstName;
+		$last_name = null;
+
+		$applicant = new Applicant($first_name, $last_name);
+		$applicant->save($token);
+	}
+
+	public function testCreateApplicantWithTitleMrNoPeriod()
+	{
+		$faker = \Faker\Factory::create();
+
+		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
+		$first_name = $faker->firstName;
+		$last_name = $faker->lastName;
+		$title = 'Mr';
+
+		$applicant = new Applicant($first_name, $last_name);
+		$applicant->setTitle($title);
+
+		$this->assertEquals($first_name, $applicant->getFirstName());
+		$this->assertEquals($last_name, $applicant->getLastName());
+		$this->assertEquals($title, $applicant->getTitle());
+
+		$applicant->save($token);
+	}
+
+	/**
+	 * @expectedException Onfido\Exception\InvalidRequestException
+	 */
+	public function testCreateApplicantWithTitleMrWithPeriod()
+	{
+		$faker = \Faker\Factory::create();
+
+		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
+		$first_name = $faker->firstName;
+		$last_name = $faker->lastName;
+		$title = 'Mr.';
+
+		$applicant = new Applicant($first_name, $last_name);
+		$applicant->setTitle($title);
+
+		$this->assertEquals($first_name, $applicant->getFirstName());
+		$this->assertEquals($last_name, $applicant->getLastName());
+		$this->assertEquals($title, $applicant->getTitle());
+
+		$applicant->save($token);
+	}
+
+	public function testCreateApplicantWithTitleMsNoPeriod()
+	{
+		$faker = \Faker\Factory::create();
+
+		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
+		$first_name = $faker->firstName;
+		$last_name = $faker->lastName;
+		$title = 'Ms';
+
+		$applicant = new Applicant($first_name, $last_name);
+		$applicant->setTitle($title);
+
+		$this->assertEquals($first_name, $applicant->getFirstName());
+		$this->assertEquals($last_name, $applicant->getLastName());
+		$this->assertEquals($title, $applicant->getTitle());
+
+		$applicant->save($token);
+	}
+
+	/**
+	 * @expectedException Onfido\Exception\InvalidRequestException
+	 */
+	public function testCreateApplicantWithTitleMsPeriod()
+	{
+		$faker = \Faker\Factory::create();
+
+		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
+		$first_name = $faker->firstName;
+		$last_name = $faker->lastName;
+		$title = 'Ms.';
+
+		$applicant = new Applicant($first_name, $last_name);
+		$applicant->setTitle($title);
+
+		$this->assertEquals($first_name, $applicant->getFirstName());
+		$this->assertEquals($last_name, $applicant->getLastName());
+		$this->assertEquals($title, $applicant->getTitle());
+
+		$applicant->save($token);
+	}
+
+	public function testCreateApplicantWithTitleMrsNoPeriod()
+	{
+		$faker = \Faker\Factory::create();
+
+		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
+		$first_name = $faker->firstName;
+		$last_name = $faker->lastName;
+		$title = 'Mrs';
+
+		$applicant = new Applicant($first_name, $last_name);
+		$applicant->setTitle($title);
+
+		$this->assertEquals($first_name, $applicant->getFirstName());
+		$this->assertEquals($last_name, $applicant->getLastName());
+		$this->assertEquals($title, $applicant->getTitle());
+
+		$applicant->save($token);
+	}
+
+	public function testCreateApplicantWithTitleMrsPeriod()
+	{
+		$faker = \Faker\Factory::create();
+
+		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
+		$first_name = $faker->firstName;
+		$last_name = $faker->lastName;
+		$title = 'Mrs';
+
+		$applicant = new Applicant($first_name, $last_name);
+		$applicant->setTitle($title);
+
+		$this->assertEquals($first_name, $applicant->getFirstName());
+		$this->assertEquals($last_name, $applicant->getLastName());
+		$this->assertEquals($title, $applicant->getTitle());
+
+		$applicant->save($token);
+	}
+
+	public function testCreateApplicantWithTitleMiss()
+	{
+		$faker = \Faker\Factory::create();
+
+		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
+		$first_name = $faker->firstName;
+		$last_name = $faker->lastName;
+		$title = 'Miss';
+
+		$applicant = new Applicant($first_name, $last_name);
+		$applicant->setTitle($title);
+
+		$this->assertEquals($first_name, $applicant->getFirstName());
+		$this->assertEquals($last_name, $applicant->getLastName());
+		$this->assertEquals($title, $applicant->getTitle());
+
+		$applicant->save($token);
+	}
+
 }

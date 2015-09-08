@@ -27,12 +27,10 @@ class Applicant
 	protected $id_numbers = [];
 	protected $addresses = [];
 
-	public function __construct($first_name, $last_name, $email, $dob)
+	public function __construct($first_name, $last_name)
 	{
 		$this->first_name = $first_name;
 		$this->last_name = $last_name;
-		$this->email = $email;
-		$this->dob = $dob;
 	}
 
 	/**
@@ -73,12 +71,14 @@ class Applicant
 		$body = $response->getBody();
 		$string_body = (string) $body;
 		$applicant_json = json_decode($string_body, true);
-		$applicant = new self($applicant_json['first_name'], $applicant_json['last_name'], $applicant_json['email'], $applicant_json['dob']);
+		$applicant = new self($applicant_json['first_name'], $applicant_json['last_name']);
 
 		$applicant->id = $applicant_json['id'];
 		$applicant->href = $applicant_json['href'];
 		$applicant->created_at = $applicant_json['created_at'];
 
+		$applicant->setDob($applicant_json['dob']);
+		$applicant->setEmail($applicant_json['email']);
 		$applicant->setTitle($applicant_json['title']);
 		$applicant->setMiddleName($applicant_json['middle_name']);
 		$applicant->setGender($applicant_json['gender']);
@@ -138,8 +138,8 @@ class Applicant
 							$fields[] = $field . ' ' . $val_errors[$i];
 						}
 					}
-					print_r($fields);
-					throw new InvalidRequestException($fields, 'Could not save applicant. Invalid fields.', $e->getCode(), $e);
+
+					throw new InvalidRequestException($fields, 'Could not save applicant. ' . implode($fields, ' '), $e->getCode(), $e);
 				}
 				else
 				{
@@ -175,6 +175,13 @@ class Applicant
 		return $this->title;
 	}
 
+	/**
+	 * Sets the title of the applicant.
+	 * 
+	 * Valid titles are 'Mr', 'Ms', 'Mrs', and 'Miss'
+	 * 
+	 * @param string $title The applicant's title
+	 */
 	public function setTitle($title)
 	{
 		$this->title = $title;
@@ -205,6 +212,11 @@ class Applicant
 		return $this->email;
 	}
 
+	public function setEmail($email)
+	{
+		$this->email = $email;
+	}
+
 	public function getGender()
 	{
 		return $this->gender;
@@ -218,6 +230,11 @@ class Applicant
 	public function getDob()
 	{
 		return $this->dob;
+	}
+
+	public function setDob($dob)
+	{
+		$this->dob = $dob;
 	}
 
 	public function getTelephone()

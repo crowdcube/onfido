@@ -2,7 +2,7 @@
 
 namespace Onfido;
 
-class Applicant
+class Address
 {
 	protected $flat_number;
 	protected $building_name;
