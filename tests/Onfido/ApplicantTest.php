@@ -475,6 +475,103 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
 		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
+	public function testCreateWithPhoneNoSpaces()
+	{
+		$applicant = $this->getSUT();
+		$applicant->setTelephone('1234567890');
+		$this->assertEquals('1234567890', $applicant->getTelephone());
+		$applicant->save(self::ONFIDO_TOKEN);
+	}
+
+	public function testCreateWithPhoneDashes()
+	{
+		$applicant = $this->getSUT();
+		$applicant->setTelephone('123-456-7890');
+
+		$applicant->save(self::ONFIDO_TOKEN);
+	}
+
+	public function testCreateWithAreaCodeParens()
+	{
+		$applicant = $this->getSUT();
+		$applicant->setTelephone('(123) 456-7890');
+
+		$applicant->save(self::ONFIDO_TOKEN);
+	}
+
+	public function testCreateWithPhoneCountryCode()
+	{
+		$applicant = $this->getSUT();
+		$applicant->setTelephone('11234567890');
+
+		$applicant->save(self::ONFIDO_TOKEN);
+	}
+
+	public function testCreateWithPhoneCountryCodePlusSign()
+	{
+		$applicant = $this->getSUT();
+		$applicant->setTelephone('+11234567890');
+
+		$applicant->save(self::ONFIDO_TOKEN);
+	}
+
+	public function testCreateWithPhoneCountryCodePlusSignSpaces()
+	{
+		$applicant = $this->getSUT();
+		$applicant->setTelephone('+1 123 456 7890');
+
+		$applicant->save(self::ONFIDO_TOKEN);
+	}
+
+	public function testCreateWithMobileNoSpaces()
+	{
+		$applicant = $this->getSUT();
+		$applicant->setMobile('1234567890');
+		$this->assertEquals('1234567890', $applicant->getMobile());
+		$applicant->save(self::ONFIDO_TOKEN);
+	}
+
+	public function testCreateWithMobileDashes()
+	{
+		$applicant = $this->getSUT();
+		$applicant->setMobile('123-456-7890');
+
+		$applicant->save(self::ONFIDO_TOKEN);
+	}
+
+	public function testCreateWithMobileAreaCodeParens()
+	{
+		$applicant = $this->getSUT();
+		$applicant->setMobile('(123) 456-7890');
+
+		$applicant->save(self::ONFIDO_TOKEN);
+	}
+
+	public function testCreateWithMobileCountryCode()
+	{
+		$applicant = $this->getSUT();
+		$applicant->setMobile('11234567890');
+
+		$applicant->save(self::ONFIDO_TOKEN);
+	}
+
+	public function testCreateWithMobileCountryCodePlusSign()
+	{
+		$applicant = $this->getSUT();
+		$applicant->setMobile('+11234567890');
+
+		$applicant->save(self::ONFIDO_TOKEN);
+	}
+
+	public function testCreateWithMobileCountryCodePlusSignSpaces()
+	{
+		$applicant = $this->getSUT();
+		$applicant->setMobile('+1 123 456 7890');
+
+		$applicant->save(self::ONFIDO_TOKEN);
+	}
+
+
 	private function getSUT()
 	{
 		$faker = \Faker\Factory::create();
