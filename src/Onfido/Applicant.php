@@ -137,7 +137,6 @@ class Applicant
 						{
 							for ($i=0; $i < count($val_errors); $i++)
 							{
-								print_r($val_errors[$i]);
 								$fields[] = $field . ' ' . $val_errors[$i];
 							}
 						}

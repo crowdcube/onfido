@@ -6,20 +6,21 @@ use Onfido\Applicant;
 
 class ApplicantTest extends \PHPUnit_Framework_TestCase
 {
+
+	const ONFIDO_TOKEN = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
+
 	/**
 	 * @expectedException Onfido\Exception\ApplicantNotFoundException
 	 */
 	public function testLoadApplicantUnknownId()
 	{
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
-		$applicant = Applicant::load($token, 'testID');
+		$applicant = Applicant::load(self::ONFIDO_TOKEN, 'testID');
 	}
 
 	public function testSavingApplicant()
 	{
 		$faker = \Faker\Factory::create();
 
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
 		$first_name = $faker->firstName;
 		$last_name = $faker->lastName;
 
@@ -28,7 +29,7 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals($first_name, $applicant->getFirstName());
 		$this->assertEquals($last_name, $applicant->getLastName());
 
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
 	/**
@@ -38,12 +39,11 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
 	{
 		$faker = \Faker\Factory::create();
 
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
 		$first_name = null;
 		$last_name = $faker->lastName;
 
 		$applicant = new Applicant($first_name, $last_name);
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
 	/**
@@ -53,12 +53,11 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
 	{
 		$faker = \Faker\Factory::create();
 
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
 		$first_name = '';
 		$last_name = $faker->lastName;
 
 		$applicant = new Applicant($first_name, $last_name);
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
 	/**
@@ -68,12 +67,11 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
 	{
 		$faker = \Faker\Factory::create();
 
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
 		$first_name = $faker->firstName;
 		$last_name = null;
 
 		$applicant = new Applicant($first_name, $last_name);
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
 	/**
@@ -83,134 +81,92 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
 	{
 		$faker = \Faker\Factory::create();
 
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
 		$first_name = $faker->firstName;
 		$last_name = '';
 
 		$applicant = new Applicant($first_name, $last_name);
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
-	public function testCreateApplicantWithTitleMrNoPeriod()
+	public function testCreateWithTitleMrNoPeriod()
 	{
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
-		
 		$applicant = $this->getSUT();
 		$title = 'Mr';
 
 		$applicant->setTitle($title);
 		$this->assertEquals($title, $applicant->getTitle());
 
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
 	/**
 	 * @expectedException Onfido\Exception\InvalidRequestException
 	 */
-	public function testCreateApplicantWithTitleMrWithPeriod()
+	public function testCreateWithTitleMrWithPeriod()
 	{
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
-
 		$applicant = $this->getSUT();
-		$title = 'Mr.';
+		$applicant->setTitle('Mr.');
 
-		$applicant->setTitle($title);
-		$this->assertEquals($title, $applicant->getTitle());
-
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
-	public function testCreateApplicantWithTitleMsNoPeriod()
+	public function testCreateWithTitleMsNoPeriod()
 	{
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
-
 		$applicant = $this->getSUT();
-		$title = 'Ms';
+		$applicant->setTitle('Ms');
 
-		$applicant->setTitle($title);
-		$this->assertEquals($title, $applicant->getTitle());
-
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
 	/**
 	 * @expectedException Onfido\Exception\InvalidRequestException
 	 */
-	public function testCreateApplicantWithTitleMsPeriod()
+	public function testCreateWithTitleMsPeriod()
 	{
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
-
 		$applicant = $this->getSUT();
-		$title = 'Ms.';
+		$applicant->setTitle('Ms.');
 
-		$applicant->setTitle($title);
-		$this->assertEquals($title, $applicant->getTitle());
-
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
-	public function testCreateApplicantWithTitleMrsNoPeriod()
+	public function testCreateWithTitleMrsNoPeriod()
+	{
+		$applicant = $this->getSUT();
+		$applicant->setTitle('Mrs');
+
+		$applicant->save(self::ONFIDO_TOKEN);
+	}
+
+	public function testCreateWithTitleMrsPeriod()
+	{
+		$applicant = $this->getSUT();
+		$applicant->setTitle('Mrs');
+
+		$applicant->save(self::ONFIDO_TOKEN);
+	}
+
+	public function testCreateWithTitleMiss()
+	{
+		$applicant = $this->getSUT();
+		$applicant->setTitle('Miss');
+
+		$applicant->save(self::ONFIDO_TOKEN);
+	}
+
+	/**
+	 * @expectedException Onfido\Exception\InvalidRequestException
+	 */
+	public function testCreateWithTitleEmptyString()
+	{
+		$applicant = $this->getSUT();
+		$applicant->setTitle('');
+
+		$applicant->save(self::ONFIDO_TOKEN);
+	}
+
+	public function testCreateWithMiddleName()
 	{
 		$faker = \Faker\Factory::create();
-
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
-
-		$applicant = $this->getSUT();
-		$title = 'Mrs';
-
-		$applicant->setTitle($title);
-		$this->assertEquals($title, $applicant->getTitle());
-
-		$applicant->save($token);
-	}
-
-	public function testCreateApplicantWithTitleMrsPeriod()
-	{
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
-
-		$applicant = $this->getSUT();
-		$title = 'Mrs';
-
-		$applicant->setTitle($title);
-		$this->assertEquals($title, $applicant->getTitle());
-
-		$applicant->save($token);
-	}
-
-	public function testCreateApplicantWithTitleMiss()
-	{
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
-
-		$applicant = $this->getSUT();
-		$title = 'Miss';
-
-		$applicant->setTitle($title);
-		$this->assertEquals($title, $applicant->getTitle());
-
-		$applicant->save($token);
-	}
-
-	/**
-	 * @expectedException Onfido\Exception\InvalidRequestException
-	 */
-	public function testCreateApplicantWithTitleEmptyString()
-	{
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
-
-		$applicant = $this->getSUT();
-		$title = '';
-
-		$applicant->setTitle($title);
-		$this->assertEquals($title, $applicant->getTitle());
-
-		$applicant->save($token);
-	}
-
-	public function testCreateApplicantWithMiddleName()
-	{
-		$faker = \Faker\Factory::create();
-
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
 
 		$applicant = $this->getSUT();
 		$middle_name = $faker->firstName;
@@ -218,40 +174,28 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
 		$applicant->setMiddleName($middle_name);
 		$this->assertEquals($middle_name, $applicant->getMiddleName());
 
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
-	public function testCreateApplicantWithMiddleNameEmptyString()
+	public function testCreateWithMiddleNameEmptyString()
 	{
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
-
 		$applicant = $this->getSUT();
-		$middle_name = '';
+		$applicant->setMiddleName('');
 
-		$applicant->setMiddleName($middle_name);
-		$this->assertEquals($middle_name, $applicant->getMiddleName());
-
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
-	public function testCreateApplicantWithMiddleNameWithSpace()
+	public function testCreateWithMiddleNameWithSpace()
 	{
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
-
 		$applicant = $this->getSUT();
-		$middle_name = '';
+		$applicant->setMiddleName('Test Middle');
 
-		$applicant->setMiddleName($middle_name);
-		$this->assertEquals($middle_name, $applicant->getMiddleName());
-
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
-	public function testCreateApplicantWithEmail()
+	public function testCreateWithEmail()
 	{
 		$faker = \Faker\Factory::create();
-
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
 
 		$applicant = $this->getSUT();
 		$email = $faker->email;
@@ -259,163 +203,113 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
 		$applicant->setEmail($email);
 		$this->assertEquals($email, $applicant->getEmail());
 
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
-	public function testCreateApplicantWithEmailNull()
+	public function testCreateWithEmailNull()
 	{
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
 		$applicant = $this->getSUT();
-		$email = null;
+		$applicant->setEmail(null);
 
-		$applicant->setEmail($email);
-		$this->assertEquals($email, $applicant->getEmail());
-
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
-	public function testCreateApplicantWithEmailEmptyString()
+	public function testCreateWithEmailEmptyString()
 	{
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
 		$applicant = $this->getSUT();
-		$email = '';
+		$applicant->setEmail('');
 
-		$applicant->setEmail($email);
-		$this->assertEquals($email, $applicant->getEmail());
-
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
 	/**
 	 * @expectedException Onfido\Exception\InvalidRequestException
 	 */
-	public function testCreateApplicantWithGenderM()
+	public function testCreateWithGenderM()
 	{
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
-
 		$applicant = $this->getSUT();
 		$gender = 'M';
 
 		$applicant->setGender($gender);
 		$this->assertEquals($gender, $applicant->getGender());
 
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
 	/**
 	 * @expectedException Onfido\Exception\InvalidRequestException
 	 */
-	public function testCreateApplicantWithGenderLittleM()
+	public function testCreateWithGenderLittleM()
 	{
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
-
 		$applicant = $this->getSUT();
-		$gender = 'm';
+		$applicant->setGender('m');
 
-		$applicant->setGender($gender);
-		$this->assertEquals($gender, $applicant->getGender());
-
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
-	public function testCreateApplicantWithGenderMale()
+	public function testCreateWithGenderMale()
 	{
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
-
 		$applicant = $this->getSUT();
-		$gender = 'Male';
+		$applicant->setGender('Male');
 
-		$applicant->setGender($gender);
-		$this->assertEquals($gender, $applicant->getGender());
-
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
-	public function testCreateApplicantWithGenderLittleMale()
+	public function testCreateWithGenderLittleMale()
 	{
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
-
 		$applicant = $this->getSUT();
-		$gender = 'male';
+		$applicant->setGender('male');
 
-		$applicant->setGender($gender);
-		$this->assertEquals($gender, $applicant->getGender());
-
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
 	/**
 	 * @expectedException Onfido\Exception\InvalidRequestException
 	 */
-	public function testCreateApplicantWithGenderF()
+	public function testCreateWithGenderF()
 	{
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
-
 		$applicant = $this->getSUT();
-		$gender = 'F';
+		$applicant->setGender('F');
 
-		$applicant->setGender($gender);
-		$this->assertEquals($gender, $applicant->getGender());
-
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
 	/**
 	 * @expectedException Onfido\Exception\InvalidRequestException
 	 */
-	public function testCreateApplicantWithGenderLittleF()
+	public function testCreateWithGenderLittleF()
 	{
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
-
 		$applicant = $this->getSUT();
-		$gender = 'f';
+		$applicant->setGender('f');
 
-		$applicant->setGender($gender);
-		$this->assertEquals($gender, $applicant->getGender());
-
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
-	public function testCreateApplicantWithGenderFemale()
+	public function testCreateWithGenderFemale()
 	{
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
-
 		$applicant = $this->getSUT();
-		$gender = 'Female';
+		$applicant->setGender('Female');
 
-		$applicant->setGender($gender);
-		$this->assertEquals($gender, $applicant->getGender());
-
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
-	public function testCreateApplicantWithGenderLittleFemale()
+	public function testCreateWithGenderLittleFemale()
 	{
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
-
 		$applicant = $this->getSUT();
-		$gender = 'female';
+		$applicant->setGender('female');
 
-		$applicant->setGender($gender);
-		$this->assertEquals($gender, $applicant->getGender());
-
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
 	/**
 	 * @expectedException Onfido\Exception\InvalidRequestException
 	 */
-	public function testCreateApplicantWithGenderTestGener()
+	public function testCreateWithGenderTestGener()
 	{
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
-
 		$applicant = $this->getSUT();
-		$gender = 'testGender';
+		$applicant->setGender('testGender');
 
-		$applicant->setGender($gender);
-		$this->assertEquals($gender, $applicant->getGender());
-
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
 	/**
@@ -423,85 +317,162 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
 	 * 
 	 * @expectedException Onfido\Exception\InvalidRequestException
 	 */
-	public function testCreateApplicantWithCountryUSA()
+	public function testCreateWithCountryUSA()
 	{
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
-
 		$applicant = $this->getSUT();
 		$country = 'usa';
 
 		$applicant->setCountry($country);
 		$this->assertEquals($country, $applicant->getCountry());
 
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
-	public function testCreateApplicantWithCountryUSAEmail()
+	public function testCreateWithCountryUSAEmail()
 	{
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
-
 		$faker = \Faker\Factory::create();
 
 		$applicant = $this->getSUT();
-		$email = $faker->email;
-		$country = 'usa';
+		$applicant->setCountry('usa');
+		$applicant->setEmail($faker->email);
 
-		$applicant->setCountry($country);
-		$applicant->setEmail($email);
-		$this->assertEquals($country, $applicant->getCountry());
-
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
-		public function testCreateApplicantWithCountryBigUSAEmail()
+		public function testCreateWithCountryBigUSAEmail()
 	{
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
-
 		$faker = \Faker\Factory::create();
 
 		$applicant = $this->getSUT();
-		$email = $faker->email;
-		$country = 'USA';
+		$applicant->setCountry('USA');
+		$applicant->setEmail($faker->email);
 
-		$applicant->setCountry($country);
-		$applicant->setEmail($email);
-		$this->assertEquals($country, $applicant->getCountry());
-
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
-	public function testCreateApplicantWithCountryUSAPeriodsEmail()
+	/**
+	 * @expectedException Onfido\Exception\InvalidRequestException
+	 */
+	public function testCreateWithCountryUSAPeriodsEmail()
 	{
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
-
 		$faker = \Faker\Factory::create();
 
 		$applicant = $this->getSUT();
-		$email = $faker->email;
-		$country = 'U.S.A.';
+		$applicant->setCountry('U.S.A.');
+		$applicant->setEmail($faker->email);
 
-		$applicant->setCountry($country);
-		$applicant->setEmail($email);
-		$this->assertEquals($country, $applicant->getCountry());
-
-		$applicant->save($token);
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
-	public function testCreateApplicantWithCountryUSEmail()
+	/**
+	 * @expectedException Onfido\Exception\InvalidRequestException
+	 */
+	public function testCreateWithCountryUSEmail()
 	{
-		$token = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
-
 		$faker = \Faker\Factory::create();
 
 		$applicant = $this->getSUT();
-		$email = $faker->email;
-		$country = 'US';
+		$applicant->setCountry('US');
+		$applicant->setEmail($faker->email);
 
-		$applicant->setCountry($country);
-		$applicant->setEmail($email);
-		$this->assertEquals($country, $applicant->getCountry());
+		$applicant->save(self::ONFIDO_TOKEN);
+	}
 
-		$applicant->save($token);
+	public function testCreateWithCountrySmallGBR()
+	{
+		$applicant = $this->getSUT();
+		$applicant->setCountry('gbr');
+
+		$applicant->save(self::ONFIDO_TOKEN);
+	}
+
+	public function testCreateWithCountryBigGBR()
+	{
+		$applicant = $this->getSUT();
+		$applicant->setCountry('GBR');
+
+		$applicant->save(self::ONFIDO_TOKEN);
+	}
+
+	/**
+	 * @expectedException Onfido\Exception\InvalidRequestException
+	 */
+	public function testCreateWithCountryBigGBRPeriods()
+	{
+		$applicant = $this->getSUT();
+		$applicant->setCountry('G.B.R.');
+
+		$applicant->save(self::ONFIDO_TOKEN);
+	}
+
+	public function testCreateWithCountrySmallCAN()
+	{
+		$applicant = $this->getSUT();
+		$applicant->setCountry('can');
+
+		$applicant->save(self::ONFIDO_TOKEN);
+	}
+
+	public function testCreateWithCountryBigCAN()
+	{
+		$applicant = $this->getSUT();
+		$applicant->setCountry('CAN');
+
+		$applicant->save(self::ONFIDO_TOKEN);
+	}
+
+	/**
+	 * @expectedException Onfido\Exception\InvalidRequestException
+	 */
+	public function testCreateWithCountryCANPeriods()
+	{
+		$applicant = $this->getSUT();
+		$applicant->setCountry('C.A.N.');
+
+		$applicant->save(self::ONFIDO_TOKEN);
+	}
+
+	public function testCreateWithBirthdayFourYearTwoMonthTwoDayDashes()
+	{
+		$faker = \Faker\Factory::create();
+		$dob = $faker->date('Y-m-d');
+		
+		$applicant = $this->getSUT();
+		$applicant->setDob($dob);
+
+		$this->assertEquals($dob, $applicant->getDob());
+
+		$applicant->save(self::ONFIDO_TOKEN);
+	}
+
+	public function testCreateWithBirthdayFourYearTwoMonthTwoDaySlashes()
+	{
+		$faker = \Faker\Factory::create();
+
+		$applicant = $this->getSUT();
+		$applicant->setDob($faker->date('Y/m/d'));
+
+		$applicant->save(self::ONFIDO_TOKEN);
+	}
+
+	public function testCreateWithBirthdayTwoYearTwoMonthNoLeadingZerosTwoDayDashes()
+	{
+		$faker = \Faker\Factory::create();
+
+		$applicant = $this->getSUT();
+		$applicant->setDob($faker->date('y-9-d'));
+
+		$applicant->save(self::ONFIDO_TOKEN);
+	}
+
+	public function testCreateWithBirthdayFourYearTwoMonthOneDayDashes()
+	{
+		$faker = \Faker\Factory::create();
+
+		$applicant = $this->getSUT();
+		$applicant->setDob($faker->date('Y-m-4'));
+
+		$applicant->save(self::ONFIDO_TOKEN);
 	}
 
 	private function getSUT()
