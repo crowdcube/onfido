@@ -107,6 +107,9 @@ class Client
 	 * Creates a new Onfido\Applicant and loads it with data retrieved from the remote
 	 * data source.
 	 * 
+	 * @throws Onfido\Exception\ApplicantNotFoundException when the applicant with the ID cannot be found
+	 * @throws Onfido\Exception\ModelRetrievalException when there was an error retrieving the applicant's data
+	 * 
 	 * @param string $id The ID of the applicant.
 	 * 
 	 * @return Onfido\Applicant The loaded applicant.

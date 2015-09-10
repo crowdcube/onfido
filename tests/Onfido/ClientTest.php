@@ -417,6 +417,15 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		);
 	}
 
+	/**
+	 * @expectedException Onfido\Exception\ApplicantNotFoundException
+	 */
+	public function testApplicantRetrievalUnknownId()
+	{
+		$client = new Client(self::ONFIDO_TOKEN);
+		$applicant = $client->retrieveApplicant('testIDNoasdf');
+	}
+
 	public function testCreateRetrieveApplicant()
 	{
 		$faker = Factory::create();
