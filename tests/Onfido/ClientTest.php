@@ -226,6 +226,55 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		);
 	}
 
+	/**
+	 * @dataProvider validPhoneNumbersProvider
+	 */
+	public function testValidPhoneNumbers($phone_number)
+	{
+		$faker = Factory::create();
+		$client = new Client(self::ONFIDO_TOKEN);
+		$params = array(
+			'first_name' => $faker->firstName,
+			'last_name' => $faker->lastName,
+			'telephone' => $phone_number
+		);
+
+		$applicant = $client->createApplicant($params);
+		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+	}
+
+	public function validPhoneNumbersProvider()
+	{
+		return array(
+			array('1234567890'),
+			array('123-456-7890'),
+			array('(123) 456-7890'),
+			array('11234567890'),
+			array('+11234567890'),
+			array('+1 123 456 7890'),
+			array(null),
+			array(''),
+			array('12345')
+		);
+	}
+
+	/**
+	 * @dataProvider validPhoneNumbersProvider
+	 */
+	public function testValidMobileNumbers($phone_number)
+	{
+		$faker = Factory::create();
+		$client = new Client(self::ONFIDO_TOKEN);
+		$params = array(
+			'first_name' => $faker->firstName,
+			'last_name' => $faker->lastName,
+			'mobile' => $phone_number
+		);
+
+		$applicant = $client->createApplicant($params);
+		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+	}
+
 	public function testCreateRetrieveApplicant()
 	{
 		$faker = Factory::create();

@@ -64,7 +64,7 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
 		$applicant = $this->getSUT();
 		$applicant->setEmail('');
 	}
-	
+
 	public function testCreateWithBirthdayFourYearTwoMonthTwoDayDashes()
 	{
 		$faker = \Faker\Factory::create();
@@ -99,79 +99,6 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
 		$applicant = $this->getSUT();
 		$applicant->setDob($faker->date('Y-m-4'));
 	}
-
-	public function testCreateWithPhoneNoSpaces()
-	{
-		$applicant = $this->getSUT();
-		$applicant->setTelephone('1234567890');
-		$this->assertEquals('1234567890', $applicant->getTelephone());	}
-
-	public function testCreateWithPhoneDashes()
-	{
-		$applicant = $this->getSUT();
-		$applicant->setTelephone('123-456-7890');
-	}
-
-	public function testCreateWithAreaCodeParens()
-	{
-		$applicant = $this->getSUT();
-		$applicant->setTelephone('(123) 456-7890');
-	}
-
-	public function testCreateWithPhoneCountryCode()
-	{
-		$applicant = $this->getSUT();
-		$applicant->setTelephone('11234567890');
-	}
-
-	public function testCreateWithPhoneCountryCodePlusSign()
-	{
-		$applicant = $this->getSUT();
-		$applicant->setTelephone('+11234567890');
-	}
-
-	public function testCreateWithPhoneCountryCodePlusSignSpaces()
-	{
-		$applicant = $this->getSUT();
-		$applicant->setTelephone('+1 123 456 7890');
-	}
-
-	public function testCreateWithMobileNoSpaces()
-	{
-		$applicant = $this->getSUT();
-		$applicant->setMobile('1234567890');
-		$this->assertEquals('1234567890', $applicant->getMobile());	}
-
-	public function testCreateWithMobileDashes()
-	{
-		$applicant = $this->getSUT();
-		$applicant->setMobile('123-456-7890');
-	}
-
-	public function testCreateWithMobileAreaCodeParens()
-	{
-		$applicant = $this->getSUT();
-		$applicant->setMobile('(123) 456-7890');
-	}
-
-	public function testCreateWithMobileCountryCode()
-	{
-		$applicant = $this->getSUT();
-		$applicant->setMobile('11234567890');
-	}
-
-	public function testCreateWithMobileCountryCodePlusSign()
-	{
-		$applicant = $this->getSUT();
-		$applicant->setMobile('+11234567890');
-	}
-
-	public function testCreateWithMobileCountryCodePlusSignSpaces()
-	{
-		$applicant = $this->getSUT();
-		$applicant->setMobile('+1 123 456 7890');
-	}
-
 
 	private function getSUT()
 	{
