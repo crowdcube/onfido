@@ -27,25 +27,26 @@ class Client
 
 	public function createApplicant($params)
 	{
+		$payload = [];
+
+		if (array_key_exists('title', $params)) $payload['title'] = $params['title'];
+		if (array_key_exists('first_name', $params)) $payload['first_name'] = $params['first_name'];
+		if (array_key_exists('last_name', $params)) $payload['last_name'] = $params['last_name'];
+		if (array_key_exists('middle_name', $params)) $payload['middle_name'] = $params['middle_name'];
+		if (array_key_exists('email', $params)) $payload['email'] = $params['email'];
+		if (array_key_exists('gender', $params)) $payload['gender'] = $params['gender'];
+		if (array_key_exists('dob', $params)) $payload['dob'] = $params['dob'];
+		if (array_key_exists('telephone', $params)) $payload['telephone'] = $params['telephone'];
+		if (array_key_exists('mobile', $params)) $payload['mobile'] = $params['mobile'];
+		if (array_key_exists('country', $params)) $payload['country'] = $params['country'];
+
 		try
 		{
 			$response = $this->client->request('POST', "/v1/applicants", [
 				'headers' => [
 					'Authorization' => "Token token=$this->authToken"
 				],
-				'form_params' => [
-					'title' => $params['title'],
-					'first_name' => $params['first_name'],
-					'last_name' => $params['last_name'],
-					'middle_name' => $params['middle_name'],
-					'email' => $params['email'],
-					'gender' => $params['gender'],
-					'dob' => $params['dob'],
-					'telephone' => $params['telephone'],
-					'mobile' => $params['mobile'],
-					'country' => $params['country'],
-					// 'id_numbers' => $params['id_numbers'],
-				]
+				'form_params' => $payload
 			]);
 		}
 		catch (ClientException $e)
@@ -144,24 +145,30 @@ class Client
 		$applicant->setId($params['id']);
 		$applicant->setHref($params['href']);
 
-		$created_at_time = date_create_from_format('Y-m-d\TH:i:s\Z', $params['created_at']);
-		$created_at_timestamp = $created_at_time->getTimestamp();
-		$applicant->setCreatedAt($created_at_timestamp);
+		if (empty($params['created_at']) === false)
+		{
+			$created_at_time = date_create_from_format('Y-m-d\TH:i:s\Z', $params['created_at']);
+			$created_at_timestamp = $created_at_time->getTimestamp();
+			$applicant->setCreatedAt($created_at_timestamp);
+		}
 
-		$applicant->setFirstName($params['first_name']);
-		$applicant->setLastName($params['last_name']);
+		if (empty($params['first_name']) === false)  $applicant->setFirstName($params['first_name']);
+		if (empty($params['last_name']) === false)   $applicant->setLastName($params['last_name']);
 
-		$dob_date_time = date_create_from_format('Y-m-d', $params['dob']);
-		$dob_timestamp = $dob_date_time->getTimestamp();
-		$applicant->setDob($dob_timestamp);
+		if (empty($params['dob']) === false)
+		{
+			$dob_date_time = date_create_from_format('Y-m-d', $params['dob']);
+			$dob_timestamp = $dob_date_time->getTimestamp();
+			$applicant->setDob($dob_timestamp);
+		}
 
-		$applicant->setEmail($params['email']);
-		$applicant->setTitle($params['title']);
-		$applicant->setMiddleName($params['middle_name']);
-		$applicant->setGender($params['gender']);
-		$applicant->setTelephone($params['telephone']);
-		$applicant->setMobile($params['mobile']);
-		$applicant->setCountry($params['country']);
+		if (empty($params['email']) === false)       $applicant->setEmail($params['email']);
+		if (empty($params['title']) === false)       $applicant->setTitle($params['title']);
+		if (empty($params['middle_name']) === false) $applicant->setMiddleName($params['middle_name']);
+		if (empty($params['gender']) === false)      $applicant->setGender($params['gender']);
+		if (empty($params['telephone']) === false)   $applicant->setTelephone($params['telephone']);
+		if (empty($params['mobile']) === false)      $applicant->setMobile($params['mobile']);
+		if (empty($params['country']) === false)     $applicant->setCountry($params['country']);
 	}
 
 }
