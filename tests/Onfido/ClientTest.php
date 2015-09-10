@@ -169,6 +169,63 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		);
 	}
 
+	/**
+	 * @dataProvider validCountryProvider
+	 */
+	public function testValidCountries($country)
+	{
+		$faker = Factory::create();
+		$client = new Client(self::ONFIDO_TOKEN);
+		$params = array(
+			'first_name' => $faker->firstName,
+			'last_name' => $faker->lastName,
+			'email' => $faker->email, // Include email because applicants created in the USA need it
+			'country' => $country
+		);
+
+		$applicant = $client->createApplicant($params);
+		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+	}
+
+	public function validCountryProvider()
+	{
+		return array(
+			array('usa'),
+			array('USA'),
+			array('can'),
+			array('CAN'),
+			array(null)
+		);
+	}
+
+	/**
+	 * @expectedException Onfido\Exception\InvalidRequestException
+	 * @dataProvider invalidCountryProvider
+	 */
+	public function testInvalidCountries($country)
+	{
+		$faker = Factory::create();
+		$client = new Client(self::ONFIDO_TOKEN);
+		$params = array(
+			'first_name' => $faker->firstName,
+			'last_name' => $faker->lastName,
+			'country' => $country
+		);
+
+		$applicant = $client->createApplicant($params);
+		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+	}
+
+	public function invalidCountryProvider()
+	{
+		return array(
+			array('U.S.A.'),
+			array('US'),
+			array('CA'),
+			array(''),
+		);
+	}
+
 	public function testCreateRetrieveApplicant()
 	{
 		$faker = Factory::create();
