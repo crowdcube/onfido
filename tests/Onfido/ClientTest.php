@@ -275,6 +275,148 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Onfido\Applicant', $applicant);
 	}
 
+	/**
+	 * @dataProvider validDateOfBirthProvider
+	 */
+	public function testValidDatesOfBirth($dob)
+	{
+		$faker = Factory::create();
+		$client = new Client(self::ONFIDO_TOKEN);
+		$params = array(
+			'first_name' => $faker->firstName,
+			'last_name' => $faker->lastName,
+			'dob' => $dob
+		);
+
+		$applicant = $client->createApplicant($params);
+		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+	}
+
+	public function validDateOfBirthProvider()
+	{
+		$faker = \Faker\Factory::create();
+
+		return array(
+			array($faker->date('Y-m-d')),
+			array($faker->date('Y/m/d')),
+			array($faker->date('y-9-d')),
+			array($faker->date('Y-m-4')),
+			array(null),
+		);
+	}
+
+	/**
+	 * @dataProvider invalidDateOfBirthProvider
+	 * @expectedException Onfido\Exception\InvalidRequestException
+	 */
+	public function testInvalidDatesOfBirth($dob)
+	{
+		$faker = Factory::create();
+		$client = new Client(self::ONFIDO_TOKEN);
+		$params = array(
+			'first_name' => $faker->firstName,
+			'last_name' => $faker->lastName,
+			'dob' => $dob
+		);
+
+		$applicant = $client->createApplicant($params);
+		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+	}
+
+	public function invalidDateOfBirthProvider()
+	{
+		$faker = \Faker\Factory::create();
+
+		return array(
+			array($faker->date('Y m d')),
+			array($faker->date('Y/24/12')),
+			array('')
+		);
+	}
+
+	/**
+	 * @dataProvider validEmailProvider
+	 */
+	public function testValidEmails($email)
+	{
+		$faker = Factory::create();
+		$client = new Client(self::ONFIDO_TOKEN);
+		$params = array(
+			'first_name' => $faker->firstName,
+			'last_name' => $faker->lastName,
+			'email' => $email
+		);
+
+		$applicant = $client->createApplicant($params);
+		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+	}
+
+	public function validEmailProvider()
+	{
+		$faker = Factory::create();
+
+		return array(
+			array($faker->email),
+			array(null),
+			array(''),
+		);
+	}
+
+	/**
+	 * @dataProvider invalidEmailProvider
+	 * @expectedException Onfido\Exception\InvalidRequestException
+	 */
+	public function testInvalidEmails($email)
+	{
+		$faker = Factory::create();
+		$client = new Client(self::ONFIDO_TOKEN);
+		$params = array(
+			'first_name' => $faker->firstName,
+			'last_name' => $faker->lastName,
+			'email' => $email
+		);
+
+		$applicant = $client->createApplicant($params);
+		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+	}
+
+	public function invalidEmailProvider()
+	{
+		return array(
+			array('email'),
+			array('email.com'),
+		);
+	}
+
+	/**
+	 * @dataProvider validMiddleNameProvider
+	 */
+	public function testValidMiddleNames($middle_name)
+	{
+		$faker = Factory::create();
+		$client = new Client(self::ONFIDO_TOKEN);
+		$params = array(
+			'first_name' => $faker->firstName,
+			'last_name' => $faker->lastName,
+			'middle_name' => $middle_name
+		);
+
+		$applicant = $client->createApplicant($params);
+		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+	}
+
+	public function validMiddleNameProvider()
+	{
+		$faker = Factory::create();
+
+		return array(
+			array($faker->firstName),
+			array('Test Middle'),
+			array(''),
+			array(null),
+		);
+	}
+
 	public function testCreateRetrieveApplicant()
 	{
 		$faker = Factory::create();
