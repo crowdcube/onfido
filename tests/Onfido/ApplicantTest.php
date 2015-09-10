@@ -65,63 +65,6 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
 		$applicant->setEmail('');
 	}
 
-	public function testCreateWithGenderM()
-	{
-		$applicant = $this->getSUT();
-		$gender = 'M';
-
-		$applicant->setGender($gender);
-		$this->assertEquals($gender, $applicant->getGender());
-	}
-
-	public function testCreateWithGenderLittleM()
-	{
-		$applicant = $this->getSUT();
-		$applicant->setGender('m');
-	}
-
-	public function testCreateWithGenderMale()
-	{
-		$applicant = $this->getSUT();
-		$applicant->setGender('Male');
-	}
-
-	public function testCreateWithGenderLittleMale()
-	{
-		$applicant = $this->getSUT();
-		$applicant->setGender('male');
-	}
-
-	public function testCreateWithGenderF()
-	{
-		$applicant = $this->getSUT();
-		$applicant->setGender('F');
-	}
-
-	public function testCreateWithGenderLittleF()
-	{
-		$applicant = $this->getSUT();
-		$applicant->setGender('f');
-	}
-
-	public function testCreateWithGenderFemale()
-	{
-		$applicant = $this->getSUT();
-		$applicant->setGender('Female');
-	}
-
-	public function testCreateWithGenderLittleFemale()
-	{
-		$applicant = $this->getSUT();
-		$applicant->setGender('female');
-	}
-
-	public function testCreateWithGenderTestGener()
-	{
-		$applicant = $this->getSUT();
-		$applicant->setGender('testGender');
-	}
-
 	public function testCreateWithCountryUSA()
 	{
 		$applicant = $this->getSUT();

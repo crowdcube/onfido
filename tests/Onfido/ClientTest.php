@@ -79,7 +79,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			array('Mr'),
 			array('Ms'),
 			array('Miss'),
-			array('Mrs')
+			array('Mrs'),
+			array(null)
 		);
 	}
 
@@ -108,7 +109,63 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			array('Ms.'),
 			array('Mrs.'),
 			array(''),
+		);
+	}
+
+	/**
+	 * @dataProvider validGenderProvider
+	 */
+	public function testValidGenders($gender)
+	{
+		$faker = Factory::create();
+		$client = new Client(self::ONFIDO_TOKEN);
+		$params = array(
+			'first_name' => $faker->firstName,
+			'last_name' => $faker->lastName,
+			'gender' => $gender
+		);
+
+		$applicant = $client->createApplicant($params);
+		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+	}
+
+	public function validGenderProvider()
+	{
+		return array(
+			array('male'),
+			array('Male'),
+			array('female'),
+			array('Female'),
 			array(null)
+		);
+	}
+
+	/**
+	 * @expectedException Onfido\Exception\InvalidRequestException
+	 * @dataProvider invalidGenderProvider
+	 */
+	public function testInvalidGenders($gender)
+	{
+		$faker = Factory::create();
+		$client = new Client(self::ONFIDO_TOKEN);
+		$params = array(
+			'first_name' => $faker->firstName,
+			'last_name' => $faker->lastName,
+			'gender' => $gender
+		);
+
+		$applicant = $client->createApplicant($params);
+		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+	}
+
+	public function invalidGenderProvider()
+	{
+		return array(
+			array('m'),
+			array('M'),
+			array('f'),
+			array('F'),
+			array(''),
 		);
 	}
 
