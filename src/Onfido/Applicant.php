@@ -208,11 +208,18 @@ class Applicant
      * 
      * Expects an integer Unix timestamp.
      * 
+     * @throws \InvalidArgumentException when the timestamp is not an integer Unix timestamp
+     * 
      * @param string $dob The timestamp of the applicant's birthdate.
      */
-    public function setDob($dob)
+    public function setDob($timestamp)
     {
-        $this->dob = $dob;
+        if (!is_numeric($timestamp))
+        {
+            throw new \InvalidArgumentException('Date of birth Timestamp must be a Unix integer timestamp.');
+        }
+
+        $this->dob = $timestamp;
     }
 
     public function getTelephone()

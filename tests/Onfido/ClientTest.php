@@ -259,7 +259,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @dataProvider validPhoneNumbersProvider
+	 * @dataProvider validMobileNumbersProvider
 	 */
 	public function testValidMobileNumbers($phone_number)
 	{
@@ -273,6 +273,21 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
 		$applicant = $client->createApplicant($params);
 		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+	}
+
+	public function validMobileNumbersProvider()
+	{
+		return array(
+			array('1234567890'),
+			array('123-456-7890'),
+			array('(123) 456-7890'),
+			array('11234567890'),
+			array('+11234567890'),
+			array('+1 123 456 7890'),
+			array(null),
+			array(''),
+			array('12345')
+		);
 	}
 
 	/**
