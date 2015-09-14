@@ -7,9 +7,11 @@ use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Exception\ClientException;
 
 use Onfido\Applicant;
+use Onfido\Address;
 use Onfido\Exception\ApplicantNotFoundException;
 use Onfido\Exception\ModelRetrievalException;
 use Onfido\Exception\InvalidRequestException;
+use Onfido\Exception\DuplicateApplicantCreationException;
 
 class Client
 {
@@ -25,6 +27,10 @@ class Client
 		]);
 	}
 
+	/**
+	 * @throws Onfido\Exception\InvalidRequestException
+	 * @throws GuzzleHttp\Exception\ClientException
+	 */
 	public function createApplicant($params)
 	{
 		$payload = [];
@@ -39,6 +45,10 @@ class Client
 		if (array_key_exists('telephone', $params)) $payload['telephone'] = $params['telephone'];
 		if (array_key_exists('mobile', $params)) $payload['mobile'] = $params['mobile'];
 		if (array_key_exists('country', $params)) $payload['country'] = $params['country'];
+		if (array_key_exists('addresses', $params)) $payload['addresses'] = $params['addresses'];
+
+		$query_string = http_build_query($payload);
+		$query_string = preg_replace('/%5B[0-9]+%5D/simU', '%5B%5D', $query_string);
 
 		try
 		{
@@ -46,7 +56,7 @@ class Client
 				'headers' => [
 					'Authorization' => "Token token=$this->authToken"
 				],
-				'form_params' => $payload
+				'query' => $query_string
 			]);
 		}
 		catch (ClientException $e)
@@ -67,9 +77,19 @@ class Client
 
 						if (is_array($val_errors))
 						{
-							for ($i=0; $i < count($val_errors); $i++)
+							foreach ($val_errors as $val_key => $field_errors)
 							{
-								$fields[] = $field . ' ' . $val_errors[$i];
+								if (is_array($field_errors))
+								{
+									for ($i=0; $i < count($field_errors); $i++)
+									{
+										$fields[] = $field . ' ' . $field_errors[$i];
+									}
+								}
+								else
+								{
+									$fields[] = $field . ' ' . $field_errors;
+								}
 							}
 						}
 						else
@@ -78,7 +98,14 @@ class Client
 						}
 					}
 
-					throw new InvalidRequestException($fields, 'Could not save applicant. ' . implode($fields, ' '), $e->getCode(), $e);
+					if ($fields[0] == 'applicant You have already entered this applicant into your Onfido system')
+					{
+						throw new DuplicateApplicantCreationException('This applicant has already been saved to the Onfido system.', $e->getCode(), $e);
+					}
+					else
+					{
+						throw new InvalidRequestException($fields, 'Could not save applicant. ' . implode($fields, ' '), $e->getCode(), $e);
+					}
 				}
 				else
 				{
@@ -92,7 +119,7 @@ class Client
 				throw $e;
 			}
 		}
-
+		
 		$body = $response->getBody();
 		$string_body = (string) $body;
 		$applicant_json = json_decode($string_body, true);
@@ -143,6 +170,84 @@ class Client
 		return $applicant;
 	}
 
+	public function runIdentityCheck(Applicant $applicant)
+	{
+		if (is_null($applicant->getId()))
+		{
+			throw new \InvalidArgumentException('Applicant\'s ID cannot be null.');
+		}
+
+		$applicant_id = $applicant->getId();
+
+		$post_fields = array(
+			'type' => 'express',
+			'reports' => array(
+				array('name' => 'identity')
+			)
+		);
+
+		$query_string = http_build_query($post_fields);
+		$query_string = preg_replace('/%5B[0-9]+%5D/simU', '%5B%5D', $query_string);
+
+		try
+		{
+			$response = $this->client->request('POST', "/v1/applicants/$applicant_id/checks", [
+				'headers' => [
+					'Authorization' => "Token token=$this->authToken"
+				],
+				'query' => $query_string
+			]);
+		}
+		catch (ClientException $e)
+		{
+			$body_json = json_decode((string) $e->getResponse()->getBody(), true);
+
+			if (array_key_exists('error', $body_json))
+			{
+				$error = $body_json['error'];
+
+				if ($error['type'] == 'validation_error')
+				{
+					$fields = [];
+
+					foreach ($error['fields'] as $field => $errors_array)
+					{
+						$val_errors = $errors_array[0];
+
+						if (is_array($val_errors))
+						{
+							foreach ($val_errors as $field => $field_errors)
+							{
+								$errors = $field_errors[0];
+
+								for ($i=0; $i < count($errors); $i++)
+								{
+									$fields[] = $field . ' ' . $errors[$i];
+								}
+							}
+						}
+						else
+						{
+							$fields[] = $field . ' ' . $val_errors;
+						}
+					}
+
+					throw new InvalidRequestException($fields, 'Could not save applicant. ' . implode($fields, ' '), $e->getCode(), $e);
+				}
+				else
+				{
+					// Rethrow exception
+					throw $e;
+				}
+			}
+			else
+			{
+				// Rethrow exception
+				throw $e;
+			}
+		}
+	}
+
 	private function populateApplicantWithResponse(Applicant $applicant, $params)
 	{
 		$applicant->setId($params['id']);
@@ -172,6 +277,27 @@ class Client
 		if (empty($params['telephone']) === false)   $applicant->setTelephone($params['telephone']);
 		if (empty($params['mobile']) === false)      $applicant->setMobile($params['mobile']);
 		if (empty($params['country']) === false)     $applicant->setCountry($params['country']);
+
+
+		if (empty($params['addresses']) === false)
+		{
+			foreach ($params['addresses'] as $addressInfo)
+			{
+				$address = new Address();
+				$address->setFlatNumber($addressInfo['flat_number']);
+				$address->setBuildingNumber($addressInfo['building_number']);
+				$address->setStreet($addressInfo['street']);
+				$address->setSubStreet($addressInfo['sub_street']);
+				$address->setTown($addressInfo['town']);
+				$address->setState($addressInfo['state']);
+				$address->setPostcode($addressInfo['postcode']);
+				$address->setCountry($addressInfo['country']);
+				$address->setStartDate($addressInfo['start_date']);
+				$address->setEndDate($addressInfo['end_date']);
+
+				$applicant->addAddress($address);
+			}
+		}
 	}
 
 }

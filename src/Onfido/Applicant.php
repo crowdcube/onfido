@@ -275,11 +275,6 @@ class Applicant
         return $this->addresses;
     }
 
-    public function setAddresses(array $addresses)
-    {
-        $this->addresses = $addresses;
-    }
-
     public function addAddress(Address $address)
     {
         $this->addresses[] = $address;
