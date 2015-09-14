@@ -70,34 +70,7 @@ class Client
 
 				if ($error['type'] == 'validation_error')
 				{
-					$fields = [];
-
-					foreach ($error['fields'] as $field => $errors_array)
-					{
-						$val_errors = $errors_array[0];
-
-						if (is_array($val_errors))
-						{
-							foreach ($val_errors as $val_key => $field_errors)
-							{
-								if (is_array($field_errors))
-								{
-									for ($i=0; $i < count($field_errors); $i++)
-									{
-										$fields[] = $field . ' ' . $field_errors[$i];
-									}
-								}
-								else
-								{
-									$fields[] = $field . ' ' . $field_errors;
-								}
-							}
-						}
-						else
-						{
-							$fields[] = $field . ' ' . $val_errors;
-						}
-					}
+					$fields = $this->formatFieldErrors($error['fields']);
 
 					if ($fields[0] == 'applicant You have already entered this applicant into your Onfido system')
 					{
@@ -209,30 +182,7 @@ class Client
 
 				if ($error['type'] == 'validation_error')
 				{
-					$fields = [];
-
-					foreach ($error['fields'] as $field => $errors_array)
-					{
-						$val_errors = $errors_array[0];
-
-						if (is_array($val_errors))
-						{
-							foreach ($val_errors as $field => $field_errors)
-							{
-								$errors = $field_errors[0];
-
-								for ($i=0; $i < count($errors); $i++)
-								{
-									$fields[] = $field . ' ' . $errors[$i];
-								}
-							}
-						}
-						else
-						{
-							$fields[] = $field . ' ' . $val_errors;
-						}
-					}
-
+					$fields = $this->formatFieldErrors($error['fields']);
 					throw new InvalidRequestException($fields, 'Could not save applicant. ' . implode($fields, ' '), $e->getCode(), $e);
 				}
 				else
@@ -252,6 +202,40 @@ class Client
 		$factory = new ReportFactory();
 		$identity_report = $factor->createReport($body_json);
 		return $identity_report;
+	}
+
+	private function formatFieldErrors($field_errors)
+	{
+		$fields = [];
+
+		foreach ($field_errors as $field => $errors_array)
+		{
+			$val_errors = $errors_array[0];
+
+			if (is_array($val_errors))
+			{
+				foreach ($val_errors as $field => $error)
+				{
+					if (is_array($error))
+					{
+						for ($i=0; $i < count($error); $i++)
+						{
+							$fields[] = $field . ' ' . $error[$i];
+						}
+					}
+					else
+					{
+						$fields[] = $field . ' ' . $error;
+					}
+				}
+			}
+			else
+			{
+				$fields[] = $field . ' ' . $val_errors;
+			}
+		}
+
+		return $fields;
 	}
 
 	private function populateApplicantWithResponse(Applicant $applicant, $params)
@@ -290,6 +274,7 @@ class Client
 			foreach ($params['addresses'] as $addressInfo)
 			{
 				$address = new Address();
+				
 				$address->setFlatNumber($addressInfo['flat_number']);
 				$address->setBuildingNumber($addressInfo['building_number']);
 				$address->setStreet($addressInfo['street']);

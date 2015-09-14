@@ -42,6 +42,11 @@ class ReportFactory
 				break;
 		}
 
+		if (array_key_exists('properties', $data))
+		{
+			$report->setProperties($data['properties']);
+		}
+
 		return $report;
 	}
 
