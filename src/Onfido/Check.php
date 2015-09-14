@@ -57,4 +57,9 @@ class Check
 		return $this->reports;
 	}
 
+	public function addReport(Report $report)
+	{
+		
+	}
+
 }

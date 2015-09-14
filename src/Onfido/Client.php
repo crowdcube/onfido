@@ -8,6 +8,7 @@ use GuzzleHttp\Exception\ClientException;
 
 use Onfido\Applicant;
 use Onfido\Address;
+use Onfido\Report\ReportFactory;
 use Onfido\Exception\ApplicantNotFoundException;
 use Onfido\Exception\ModelRetrievalException;
 use Onfido\Exception\InvalidRequestException;
@@ -246,6 +247,11 @@ class Client
 				throw $e;
 			}
 		}
+
+		$body_json = json_decode((string) $response->getBody(), true);
+		$factory = new ReportFactory();
+		$identity_report = $factor->createReport($body_json);
+		return $identity_report;
 	}
 
 	private function populateApplicantWithResponse(Applicant $applicant, $params)
