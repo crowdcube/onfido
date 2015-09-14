@@ -555,35 +555,36 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$client->runIdentityCheck($applicant);
 	}
 
-	public function testRunIdentityCheck()
-	{
-		$faker = Factory::create();
+	// Can't run this with a test auth key
+	// public function testRunIdentityCheck()
+	// {
+	// 	$faker = Factory::create();
 
-		$first_name = $faker->firstName;
-		$last_name = $faker->lastName;
+	// 	$first_name = $faker->firstName;
+	// 	$last_name = $faker->lastName;
 
-		$params = array(
-			'first_name' => $first_name,
-			'last_name' => $last_name,
-			'dob' => $faker->date('Y-m-d'),
-			'addresses' => array(
-				array(
-					'building_number' => $faker->numberBetween(10, 10000),
-					'street' => $faker->streetName,
-					'town' => $faker->city,
-					'postcode' => 12345,
-					'country' => 'USA',
-					'state' => $faker->stateAbbr,
-					'start_date' => $faker->date('Y-m-d')
-				)
-			)
-		);
+	// 	$params = array(
+	// 		'first_name' => $first_name,
+	// 		'last_name' => $last_name,
+	// 		'dob' => $faker->date('Y-m-d'),
+	// 		'addresses' => array(
+	// 			array(
+	// 				'building_number' => $faker->numberBetween(10, 10000),
+	// 				'street' => $faker->streetName,
+	// 				'town' => $faker->city,
+	// 				'postcode' => 12345,
+	// 				'country' => 'USA',
+	// 				'state' => $faker->stateAbbr,
+	// 				'start_date' => $faker->date('Y-m-d')
+	// 			)
+	// 		)
+	// 	);
 
-		$client = new Client(self::ONFIDO_TOKEN);
-		$applicant = $client->createApplicant($params);
-		print_r($applicant);
-		$client->runIdentityCheck($applicant);
-	}
+	// 	$client = new Client(self::ONFIDO_TOKEN);
+	// 	$applicant = $client->createApplicant($params);
+
+	// 	$client->runIdentityCheck($applicant);
+	// }
 
 	public function testCreateApplicantTwiceFirstLastName()
 	{
