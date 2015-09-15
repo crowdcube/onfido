@@ -32,6 +32,7 @@ class ReportFactory
 		$name       = array_key_exists('name', $data)       ? $data['name']       : null;
 		$created_at = array_key_exists('created_at', $data) ? $data['created_at'] : null;
 		$status     = array_key_exists('status', $data)     ? $data['status']     : null;
+		$result      = array_key_exists('result', $data)     ? $data['result']     : null;
 
 		switch ($data['name']) {
 			case 'identity':
@@ -40,6 +41,11 @@ class ReportFactory
 			default:
 				throw new \InvalidArgumentException('Could not create report of unknown type.');
 				break;
+		}
+
+		if (!is_null($result))
+		{
+			$report->setResult($result);
 		}
 
 		if (array_key_exists('properties', $data))
@@ -58,7 +64,7 @@ class ReportFactory
 		{
 			$report->setSocialSecurityResult($data['breakdown']['ssn']['result']);
 			$report->setMortalityResult($data['breakdown']['mortality']['result']);
-			$report->setDateOfBirthMatchResult($data['breakdown']['mortality']['result']);
+			$report->setDateOfBirthMatchResult($data['breakdown']['date_of_birth']['result']);
 
 			if (array_key_exists('address', $data['breakdown']))
 			{
