@@ -432,6 +432,30 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		);
 	}
 
+	public function testCreateApplicantWithAddress()
+	{
+		$faker = Factory::create();
+		$client = new Client(self::ONFIDO_TOKEN);
+		$params = array(
+			'first_name' => $faker->firstName,
+			'last_name' => $faker->lastName,
+			'addresses' => array(
+				array(
+					'building_number' => $faker->numberBetween(10, 10000),
+					'street' => $faker->streetName,
+					'town' => $faker->city,
+					'postcode' => 12345,
+					'country' => 'USA',
+					'state' => $faker->stateAbbr,
+					'start_date' => $faker->date('Y-m-d')
+				)
+			)
+		);
+
+		$applicant = $client->createApplicant($params);
+		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+	}
+
 	/**
 	 * @expectedException Onfido\Exception\ApplicantNotFoundException
 	 */
@@ -506,5 +530,111 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals($telephone, $applicant->getTelephone());
 		$this->assertEquals($mobile, $applicant->getMobile());
 		$this->assertEquals($country, $applicant->getCountry());
+	}
+
+	/**
+	 * @expectedException Onfido\Exception\InvalidRequestException
+	 * 
+	 * Identity check requires at least one address and a date of birth
+	 */
+	public function testRunIdentityCheckMissingData()
+	{
+		$faker = Factory::create();
+
+		$first_name = $faker->firstName;
+		$last_name = $faker->lastName;
+
+		$params = array(
+			'first_name' => $first_name,
+			'last_name' => $last_name
+		);
+
+		$client = new Client(self::ONFIDO_TOKEN);
+		$applicant = $client->createApplicant($params);
+
+		$client->runIdentityCheck($applicant);
+	}
+
+	// Can't run this with a test auth key
+	// public function testRunIdentityCheck()
+	// {
+	// 	$faker = Factory::create();
+
+	// 	$first_name = $faker->firstName;
+	// 	$last_name = $faker->lastName;
+
+	// 	$params = array(
+	// 		'first_name' => $first_name,
+	// 		'last_name' => $last_name,
+	// 		'dob' => $faker->date('Y-m-d'),
+	// 		'addresses' => array(
+	// 			array(
+	// 				'building_number' => $faker->numberBetween(10, 10000),
+	// 				'street' => $faker->streetName,
+	// 				'town' => $faker->city,
+	// 				'postcode' => 12345,
+	// 				'country' => 'USA',
+	// 				'state' => $faker->stateAbbr,
+	// 				'start_date' => $faker->date('Y-m-d')
+	// 			)
+	// 		)
+	// 	);
+
+	// 	$client = new Client(self::ONFIDO_TOKEN);
+	// 	$applicant = $client->createApplicant($params);
+
+	// 	$client->runIdentityCheck($applicant);
+	// }
+
+	public function testCreateApplicantTwiceFirstLastName()
+	{
+		$faker = Factory::create();
+
+		$first_name = $faker->firstName;
+		$last_name = $faker->lastName;
+
+		$params = array(
+			'first_name' => $first_name,
+			'last_name' => $last_name
+		);
+
+		$client = new Client(self::ONFIDO_TOKEN);
+		$applicant = $client->createApplicant($params);
+		$applicant = $client->createApplicant($params);
+	}
+
+	/**
+	 * @expectedException Onfido\Exception\DuplicateApplicantCreationException
+	 */
+	public function testCreateApplicantTwice()
+	{
+		$faker = Factory::create();
+		$title = 'Mr';
+		$first_name = $faker->firstName;
+		$last_name = $faker->lastName;
+		$middle_name = $faker->firstName;
+		$email = $faker->email;
+		$gender = 'Male';
+		$dob = '1980-11-23';
+		$telephone = '11234567890';
+		$mobile = '10987654321';
+		$country = 'usa';
+
+		$params = array(
+			'title' => $title,
+			'first_name' => $first_name,
+			'last_name' => $last_name,
+			'middle_name' => $middle_name,
+			'email' => $email,
+			'gender' => $gender,
+			'dob' => $dob,
+			'telephone' => $telephone,
+			'mobile' => $mobile,
+			'country' => $country
+		);
+
+		$client = new Client(self::ONFIDO_TOKEN);
+		$applicant = $client->createApplicant($params);
+		$applicant = $client->createApplicant($params);
 	}
 }

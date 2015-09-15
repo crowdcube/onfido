@@ -6,10 +6,11 @@ use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Exception\ClientException;
 
-use Onfido\Applicant;
+use Onfido\Report\ReportFactory;
 use Onfido\Exception\ApplicantNotFoundException;
 use Onfido\Exception\ModelRetrievalException;
 use Onfido\Exception\InvalidRequestException;
+use Onfido\Exception\DuplicateApplicantCreationException;
 
 class Client
 {
@@ -25,6 +26,10 @@ class Client
 		]);
 	}
 
+	/**
+	 * @throws Onfido\Exception\InvalidRequestException
+	 * @throws GuzzleHttp\Exception\ClientException
+	 */
 	public function createApplicant($params)
 	{
 		$payload = [];
@@ -39,6 +44,9 @@ class Client
 		if (array_key_exists('telephone', $params)) $payload['telephone'] = $params['telephone'];
 		if (array_key_exists('mobile', $params)) $payload['mobile'] = $params['mobile'];
 		if (array_key_exists('country', $params)) $payload['country'] = $params['country'];
+		if (array_key_exists('addresses', $params)) $payload['addresses'] = $params['addresses'];
+
+		$query_string = $this->cleanQuery(http_build_query($payload));
 
 		try
 		{
@@ -46,7 +54,7 @@ class Client
 				'headers' => [
 					'Authorization' => "Token token=$this->authToken"
 				],
-				'form_params' => $payload
+				'query' => $query_string
 			]);
 		}
 		catch (ClientException $e)
@@ -59,26 +67,16 @@ class Client
 
 				if ($error['type'] == 'validation_error')
 				{
-					$fields = [];
+					$fields = $this->formatFieldErrors($error['fields']);
 
-					foreach ($error['fields'] as $field => $errors_array)
+					if ($fields[0] == 'applicant You have already entered this applicant into your Onfido system')
 					{
-						$val_errors = $errors_array[0];
-
-						if (is_array($val_errors))
-						{
-							for ($i=0; $i < count($val_errors); $i++)
-							{
-								$fields[] = $field . ' ' . $val_errors[$i];
-							}
-						}
-						else
-						{
-							$fields[] = $field . ' ' . $val_errors;
-						}
+						throw new DuplicateApplicantCreationException('This applicant has already been saved to the Onfido system.', $e->getCode(), $e);
 					}
-
-					throw new InvalidRequestException($fields, 'Could not save applicant. ' . implode($fields, ' '), $e->getCode(), $e);
+					else
+					{
+						throw new InvalidRequestException($fields, 'Could not save applicant. ' . implode($fields, ' '), $e->getCode(), $e);
+					}
 				}
 				else
 				{
@@ -106,12 +104,12 @@ class Client
 	/**
 	 * Creates a new Onfido\Applicant and loads it with data retrieved from the remote
 	 * data source.
-	 * 
+	 *
 	 * @throws Onfido\Exception\ApplicantNotFoundException when the applicant with the ID cannot be found
 	 * @throws Onfido\Exception\ModelRetrievalException when there was an error retrieving the applicant's data
-	 * 
+	 *
 	 * @param string $id The ID of the applicant.
-	 * 
+	 *
 	 * @return Onfido\Applicant The loaded applicant.
 	 */
 	public function retrieveApplicant($applicant_id)
@@ -143,6 +141,99 @@ class Client
 		return $applicant;
 	}
 
+	public function runIdentityCheck(Applicant $applicant)
+	{
+		if (is_null($applicant->getId()))
+		{
+			throw new \InvalidArgumentException('Applicant\'s ID cannot be null.');
+		}
+
+		$applicant_id = $applicant->getId();
+
+		$post_fields = array(
+			'type' => 'express',
+			'reports' => array(
+				array('name' => 'identity')
+			)
+		);
+
+		$query_string = $this->cleanQuery(http_build_query($post_fields));
+
+		try
+		{
+			$response = $this->client->request('POST', "/v1/applicants/$applicant_id/checks", [
+				'headers' => [
+					'Authorization' => "Token token=$this->authToken"
+				],
+				'query' => $query_string
+			]);
+		}
+		catch (ClientException $e)
+		{
+			$body_json = json_decode((string) $e->getResponse()->getBody(), true);
+
+			if (array_key_exists('error', $body_json))
+			{
+				$error = $body_json['error'];
+
+				if ($error['type'] == 'validation_error')
+				{
+					$fields = $this->formatFieldErrors($error['fields']);
+					throw new InvalidRequestException($fields, 'Could not save applicant. ' . implode($fields, ' '), $e->getCode(), $e);
+				}
+				else
+				{
+					// Rethrow exception
+					throw $e;
+				}
+			}
+			else
+			{
+				// Rethrow exception
+				throw $e;
+			}
+		}
+
+		$body_json = json_decode((string) $response->getBody(), true);
+		$factory = new ReportFactory();
+		$identity_report = $factor->createReport($body_json);
+		return $identity_report;
+	}
+
+	private function formatFieldErrors($field_errors)
+	{
+		$fields = [];
+
+		foreach ($field_errors as $field => $errors_array)
+		{
+			$val_errors = $errors_array[0];
+
+			if (is_array($val_errors))
+			{
+				foreach ($val_errors as $field => $error)
+				{
+					if (is_array($error))
+					{
+						for ($i=0; $i < count($error); $i++)
+						{
+							$fields[] = $field . ' ' . $error[$i];
+						}
+					}
+					else
+					{
+						$fields[] = $field . ' ' . $error;
+					}
+				}
+			}
+			else
+			{
+				$fields[] = $field . ' ' . $val_errors;
+			}
+		}
+
+		return $fields;
+	}
+
 	private function populateApplicantWithResponse(Applicant $applicant, $params)
 	{
 		$applicant->setId($params['id']);
@@ -172,6 +263,43 @@ class Client
 		if (empty($params['telephone']) === false)   $applicant->setTelephone($params['telephone']);
 		if (empty($params['mobile']) === false)      $applicant->setMobile($params['mobile']);
 		if (empty($params['country']) === false)     $applicant->setCountry($params['country']);
+
+
+		if (empty($params['addresses']) === false)
+		{
+			foreach ($params['addresses'] as $addressInfo)
+			{
+				$address = new Address();
+
+				$address->setFlatNumber($addressInfo['flat_number']);
+				$address->setBuildingNumber($addressInfo['building_number']);
+				$address->setStreet($addressInfo['street']);
+				$address->setSubStreet($addressInfo['sub_street']);
+				$address->setTown($addressInfo['town']);
+				$address->setState($addressInfo['state']);
+				$address->setPostcode($addressInfo['postcode']);
+				$address->setCountry($addressInfo['country']);
+				$address->setStartDate($addressInfo['start_date']);
+				$address->setEndDate($addressInfo['end_date']);
+
+				$applicant->addAddress($address);
+			}
+		}
+	}
+
+	/**
+	 * Reformats a percentage-encoded query string to remove integers in square brackets.
+	 *
+	 * For nested params int he queries, Guzzle would encode arrays with indicies which
+	 * malformed the query. This strips out those numbers so it's just the square brackets.
+	 *
+	 * @param  string $query_string The query to clean
+	 * @return string               The sanitized query
+	 */
+	private function cleanQuery($query_string)
+	{
+		$query_string = preg_replace('/%5B[0-9]+%5D/simU', '%5B%5D', $query_string);
+		return $query_string;
 	}
 
 }
