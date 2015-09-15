@@ -6,8 +6,6 @@ use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Exception\ClientException;
 
-use Onfido\Applicant;
-use Onfido\Address;
 use Onfido\Report\ReportFactory;
 use Onfido\Exception\ApplicantNotFoundException;
 use Onfido\Exception\ModelRetrievalException;
@@ -49,8 +47,7 @@ class Client
 		if (array_key_exists('addresses', $params)) $payload['addresses'] = $params['addresses'];
 		if (array_key_exists('id_numbers', $params)) $payload['id_numbers'] = $params['id_numbers'];
 
-		$query_string = http_build_query($payload);
-		$query_string = preg_replace('/%5B[0-9]+%5D/simU', '%5B%5D', $query_string);
+		$query_string = $this->cleanQuery(http_build_query($payload));
 
 		try
 		{
@@ -94,7 +91,7 @@ class Client
 				throw $e;
 			}
 		}
-		
+
 		$body = $response->getBody();
 		$string_body = (string) $body;
 		$applicant_json = json_decode($string_body, true);
@@ -108,12 +105,12 @@ class Client
 	/**
 	 * Creates a new Onfido\Applicant and loads it with data retrieved from the remote
 	 * data source.
-	 * 
+	 *
 	 * @throws Onfido\Exception\ApplicantNotFoundException when the applicant with the ID cannot be found
 	 * @throws Onfido\Exception\ModelRetrievalException when there was an error retrieving the applicant's data
-	 * 
+	 *
 	 * @param string $id The ID of the applicant.
-	 * 
+	 *
 	 * @return Onfido\Applicant The loaded applicant.
 	 */
 	public function retrieveApplicant($applicant_id)
@@ -171,8 +168,7 @@ class Client
 			)
 		);
 
-		$query_string = http_build_query($post_fields);
-		$query_string = preg_replace('/%5B[0-9]+%5D/simU', '%5B%5D', $query_string);
+		$query_string = $this->cleanQuery(http_build_query($post_fields));
 
 		try
 		{
@@ -310,6 +306,21 @@ class Client
 				$applicant->addAddress($address);
 			}
 		}
+	}
+
+	/**
+	 * Reformats a percentage-encoded query string to remove integers in square brackets.
+	 *
+	 * For nested params int he queries, Guzzle would encode arrays with indicies which
+	 * malformed the query. This strips out those numbers so it's just the square brackets.
+	 *
+	 * @param  string $query_string The query to clean
+	 * @return string               The sanitized query
+	 */
+	private function cleanQuery($query_string)
+	{
+		$query_string = preg_replace('/%5B[0-9]+%5D/simU', '%5B%5D', $query_string);
+		return $query_string;
 	}
 
 }
