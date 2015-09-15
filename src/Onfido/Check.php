@@ -59,7 +59,7 @@ class Check
 
 	public function addReport(Report $report)
 	{
-		
+		$this->reports[] = $report;
 	}
 
 }
