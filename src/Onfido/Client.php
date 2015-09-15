@@ -145,6 +145,16 @@ class Client
 		return $applicant;
 	}
 
+	/**
+	 * Runs an identity check for the supplied applicant.
+	 * 
+	 * @throws \InvalidArgumentException if the applicant's ID is null
+	 * @throws Onfido\Exception\InvalidRequest if the supplied data for the identity check is not valid
+	 * 
+	 * @param Onfido\Applicant $applicant The applicant to run through an identity check
+	 * 
+	 * @return Onfido\Report\IdentityReport The identity report result
+	 */
 	public function runIdentityCheck(Applicant $applicant)
 	{
 		if (is_null($applicant->getId()))
@@ -184,7 +194,7 @@ class Client
 				if ($error['type'] == 'validation_error')
 				{
 					$fields = $this->formatFieldErrors($error['fields']);
-					throw new InvalidRequestException($fields, 'Could not save applicant. ' . implode($fields, ' '), $e->getCode(), $e);
+					throw new InvalidRequestException($fields, 'Could not run identity check. ' . implode($fields, ' '), $e->getCode(), $e);
 				}
 				else
 				{
