@@ -2,7 +2,7 @@
 
 namespace Onfido;
 
-class Address
+class Address implements \JsonSerializable
 {
     protected $flat_number;
     protected $building_name;
@@ -124,5 +124,22 @@ class Address
     public function setEndDate($end_date)
     {
         $this->end_date = $end_date;
+    }
+
+    public function jsonSerialize()
+    {
+        return array(
+            'flat_number' => $this->flat_number,
+            'building_name' => $this->building_name,
+            'building_number' => $this->building_number,
+            'street' => $this->street,
+            'sub_street' => $this->sub_street,
+            'state' => $this->state,
+            'town' => $this->town,
+            'postcode' => $this->postcode,
+            'country' => $this->country,
+            'start_date' => $this->start_date,
+            'end_date' => $this->end_date
+        );
     }
 }

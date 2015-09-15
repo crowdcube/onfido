@@ -5,7 +5,7 @@ namespace Onfido;
 use InvalidArgumentException;
 use Onfido\Address;
 
-class Applicant
+class Applicant implements \JsonSerializable
 {
     protected static $allowed_titles = ['Mr', 'Ms', 'Mrs', 'Miss'];
     protected static $allowed_genders = ['male', 'Male', 'female', 'Female'];
@@ -28,7 +28,7 @@ class Applicant
 
     /**
      * Gets the Onfido ID for the applicant.
-     * 
+     *
      * @return null|string The ID of the applicant.
      */
     public function getId()
@@ -38,7 +38,7 @@ class Applicant
 
     /**
      * Sets the Onfido ID for the applicant instance.
-     * 
+     *
      * @param string $id The Onfido ID of the applicant.
      */
     public function setId($id)
@@ -48,9 +48,9 @@ class Applicant
 
     /**
      * Gets the creation timestamp for the applicant.
-     * 
+     *
      * @param string $format The date string format for the return string.
-     * 
+     *
      * @return null|string The date and time of creation of the applicant, in the specified format.
      */
     public function getCreatedAt($format = 'Y-m-d\TH:i:s\Z')
@@ -66,7 +66,7 @@ class Applicant
 
     /**
      * Sets the creation Unix timestamp for the applicant.
-     * 
+     *
      * @param string $timestamp The Unix timestamp representing the creation date and time of the applicant's file.
      */
     public function setCreatedAt($timestamp)
@@ -81,7 +81,7 @@ class Applicant
 
     /**
      * The URL representing the applicant in Onfido.
-     * 
+     *
      * @return null|string The URL for the applicant.
      */
     public function getHref()
@@ -91,7 +91,7 @@ class Applicant
 
     /**
      * Sets the URL that represents the applicant in Onfido.
-     * 
+     *
      * @param string $href The URL for the applicant.
      */
     public function setHref($href)
@@ -101,7 +101,7 @@ class Applicant
 
     /**
      * Gets the title of the applicant, e.g. 'Mr', 'Ms', etc.
-     * 
+     *
      * @return null|string The title of the applicant.
      */
     public function getTitle()
@@ -111,11 +111,11 @@ class Applicant
 
     /**
      * Sets the title of the applicant.
-     * 
+     *
      * Valid titles are 'Mr', 'Ms', 'Mrs', and 'Miss'
-     * 
+     *
      * @throws \InvalidArgumentException if the title is not supported by Onfido.
-     * 
+     *
      * @param string $title The applicant's title
      */
     public function setTitle($title)
@@ -175,11 +175,11 @@ class Applicant
 
     /**
      * Sets the gender of the applicant.
-     * 
+     *
      * Valid values are 'male', 'Male', 'female', or 'Female'.
-     * 
+     *
      * @throws \InvalidArgumentException if the gender is not supported by Onfido.
-     * 
+     *
      * @param string $gender The gender of the applicant
      */
     public function setGender($gender)
@@ -205,11 +205,11 @@ class Applicant
 
     /**
      * Sets the birthdate of the applicant.
-     * 
+     *
      * Expects an integer Unix timestamp.
-     * 
+     *
      * @throws \InvalidArgumentException when the timestamp is not an integer Unix timestamp
-     * 
+     *
      * @param string $dob The timestamp of the applicant's birthdate.
      */
     public function setDob($timestamp)
@@ -249,10 +249,10 @@ class Applicant
 
     /**
      * Set the country for the applicant.
-     * 
+     *
      * Must be a three letter ISO country code.
      * https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
-     * 
+     *
      * @param string $country The country of residence for the applicant.
      */
     public function setCountry($country)
@@ -278,5 +278,25 @@ class Applicant
     public function addAddress(Address $address)
     {
         $this->addresses[] = $address;
+    }
+
+    public function jsonSerialize()
+    {
+        return array(
+            'id' => $this->id,
+            'created_at' => $this->getCreatedAt(),
+            'href' => $this->href,
+            'title' => $this->title,
+            'first_name' => $this->first_name,
+            'middle_name' => $this->middle_name,
+            'last_name' => $this->last_name,
+            'gender' => $this->gender,
+            'dob' => $this->dob,
+            'telephone' => $this->telephone,
+            'mobile' => $this->mobile,
+            'country' => $this->country,
+            'id_numbers' => $this->id_numbers,
+            'addresses' => $this->addresses
+        );
     }
 }

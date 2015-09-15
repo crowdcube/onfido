@@ -3,6 +3,8 @@
 namespace Onfido\Test;
 
 use Onfido\Applicant;
+use Onfido\Address;
+use Faker\Factory;
 
 class ApplicantTest extends \PHPUnit_Framework_TestCase
 {
@@ -262,5 +264,96 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
 			array(''),
 			array('12345')
 		);
+	}
+
+	public function testJsonSerialization()
+	{
+		$faker = Factory::create();
+
+		$title = 'Mr';
+		$first_name = $faker->firstName;
+		$last_name = $faker->lastName;
+		$middle_name = $faker->firstName;
+		$email = $faker->email;
+		$gender = 'Male';
+		$dob = '1441923403';
+		$telephone = '11234567890';
+		$mobile = '10987654321';
+		$country = 'usa';
+
+		$building_number = $faker->numberBetween(10, 10000);
+		$street = $faker->streetName;
+		$town = $faker->city;
+		$state = $faker->stateAbbr;
+		$postcode = 12345;
+		$address_start_date = $faker->date('Y-m-d');
+
+		$applicant = new Applicant();
+		$applicant->setTitle($title);
+		$applicant->setFirstName($first_name);
+		$applicant->setMiddleName($middle_name);
+		$applicant->setLastName($last_name);
+		$applicant->setEmail($email);
+		$applicant->setGender($gender);
+		$applicant->setDob($dob);
+		$applicant->setTelephone($telephone);
+		$applicant->setMobile($mobile);
+		$applicant->setCountry($country);
+		$applicant->setIdNumbers(
+			array(
+				array(
+					'type' => 'ssn',
+					'value' => '123-45-6789'
+				)
+			)
+		);
+
+		$address = new Address();
+		$address->setBuildingNumber($building_number);
+		$address->setStreet($street);
+		$address->setTown($town);
+		$address->setState($state);
+		$address->setPostcode($postcode);
+		$address->setStartDate($address_start_date);
+		$applicant->addAddress($address);
+
+		$applicant_json = json_encode($applicant);
+
+		$expected_json = '{
+			"id": null,
+			"created_at": null,
+			"href": null,
+			"title": "Mr",
+			"first_name": "' . $first_name . '",
+			"middle_name": "' . $middle_name .'",
+			"last_name": "' . $last_name . '",
+			"gender": "Male",
+			"dob": "1441923403",
+			"telephone": "11234567890",
+			"mobile": "10987654321",
+			"country": "usa",
+			"id_numbers":[
+				{
+					"type": "ssn",
+					"value": "123-45-6789"
+				}
+			],
+			"addresses":[
+				{
+					"flat_number": null,
+					"building_name": null,
+					"building_number": ' . $building_number . ',
+					"street": "' . $street . '",
+					"sub_street": null,
+					"state": "' . $state . '",
+					"town": "' . $town . '",
+					"postcode": 12345,
+					"country": null,
+					"start_date": "' . $address_start_date . '",
+					"end_date": null
+				}
+			]
+		}';
+		$this->assertJsonStringEqualsJsonString($expected_json, $applicant_json);
 	}
 }
