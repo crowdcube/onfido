@@ -27,8 +27,12 @@ class Client
 	}
 
 	/**
-	 * @throws Onfido\Exception\InvalidRequestException
-	 * @throws GuzzleHttp\Exception\ClientException
+	 * Creates an applicant record in Onfido.
+	 *
+	 * @throws Onfido\Exception\DuplicateApplicantCreationException when an appllicant with the same data exists.
+	 * @throws Onfido\Exception\InvalidRequestException when the create request could not be processed
+	 *
+	 * @return Onfido\Applicant The applicant model filled with the supplied data.
 	 */
 	public function createApplicant($params)
 	{
@@ -144,12 +148,12 @@ class Client
 
 	/**
 	 * Runs an identity check for the supplied applicant.
-	 * 
+	 *
 	 * @throws \InvalidArgumentException if the applicant's ID is null
 	 * @throws Onfido\Exception\InvalidRequest if the supplied data for the identity check is not valid
-	 * 
+	 *
 	 * @param Onfido\Applicant $applicant The applicant to run through an identity check
-	 * 
+	 *
 	 * @return Onfido\Report\IdentityReport The identity report result
 	 */
 	public function runIdentityCheck(Applicant $applicant)
