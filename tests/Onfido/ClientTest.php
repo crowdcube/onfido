@@ -555,36 +555,45 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$client->runIdentityCheck($applicant);
 	}
 
-	// Can't run this with a test auth key
-	// public function testRunIdentityCheck()
-	// {
-	// 	$faker = Factory::create();
 
-	// 	$first_name = $faker->firstName;
-	// 	$last_name = $faker->lastName;
+	public function testRunIdentityCheck()
+	{
+		$faker = Factory::create();
 
-	// 	$params = array(
-	// 		'first_name' => $first_name,
-	// 		'last_name' => $last_name,
-	// 		'dob' => $faker->date('Y-m-d'),
-	// 		'addresses' => array(
-	// 			array(
-	// 				'building_number' => $faker->numberBetween(10, 10000),
-	// 				'street' => $faker->streetName,
-	// 				'town' => $faker->city,
-	// 				'postcode' => 12345,
-	// 				'country' => 'USA',
-	// 				'state' => $faker->stateAbbr,
-	// 				'start_date' => $faker->date('Y-m-d')
-	// 			)
-	// 		)
-	// 	);
+		$first_name = $faker->firstName;
+		$last_name = $faker->lastName;
 
-	// 	$client = new Client(self::ONFIDO_TOKEN);
-	// 	$applicant = $client->createApplicant($params);
+		$params = array(
+			'first_name' => $first_name,
+			'last_name' => $last_name,
+			'dob' => $faker->date('Y-m-d'),
+			'email' => $faker->email,
+			'country' => 'USA',
+			'addresses' => array(
+				array(
+					'building_number' => $faker->numberBetween(10, 10000),
+					'street' => $faker->streetName,
+					'town' => $faker->city,
+					'postcode' => 12345,
+					'country' => 'USA',
+					'state' => $faker->stateAbbr,
+					'start_date' => $faker->date('Y-m-d')
+				)
+			),
+			'id_numbers' => array(
+				array(
+					'type' => 'ssn',
+					'value' => '433-54-3937'
+				)
+			)
+		);
 
-	// 	$client->runIdentityCheck($applicant);
-	// }
+		$client = new Client(self::ONFIDO_TOKEN);
+		$applicant = $client->createApplicant($params);
+
+		$identityCheckReport = $client->runIdentityCheck($applicant);
+		$this->assertInstanceOf('Onfido\Report\IdentityReport', $identityCheckReport);
+	}
 
 	public function testCreateApplicantTwiceFirstLastName()
 	{

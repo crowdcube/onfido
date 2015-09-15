@@ -47,6 +47,7 @@ class Client
 		if (array_key_exists('mobile', $params)) $payload['mobile'] = $params['mobile'];
 		if (array_key_exists('country', $params)) $payload['country'] = $params['country'];
 		if (array_key_exists('addresses', $params)) $payload['addresses'] = $params['addresses'];
+		if (array_key_exists('id_numbers', $params)) $payload['id_numbers'] = $params['id_numbers'];
 
 		$query_string = http_build_query($payload);
 		$query_string = preg_replace('/%5B[0-9]+%5D/simU', '%5B%5D', $query_string);
@@ -200,7 +201,7 @@ class Client
 
 		$body_json = json_decode((string) $response->getBody(), true);
 		$factory = new ReportFactory();
-		$identity_report = $factor->createReport($body_json);
+		$identity_report = $factory->createReport($body_json['reports'][0]);
 		return $identity_report;
 	}
 
@@ -214,13 +215,23 @@ class Client
 
 			if (is_array($val_errors))
 			{
-				foreach ($val_errors as $field => $error)
+				foreach ($val_errors as $val_field => $error)
 				{
 					if (is_array($error))
 					{
 						for ($i=0; $i < count($error); $i++)
 						{
-							$fields[] = $field . ' ' . $error[$i];
+							if (is_array($error[$i]))
+							{
+								for ($j = 0; $j < count($error[$i]); $j++)
+								{
+									$fields[] = $field . ' ' . $error[$i][$j];
+								}
+							}
+							else
+							{
+								$fields[] = $field . ' ' . $error;
+							}
 						}
 					}
 					else
@@ -274,7 +285,7 @@ class Client
 			foreach ($params['addresses'] as $addressInfo)
 			{
 				$address = new Address();
-				
+
 				$address->setFlatNumber($addressInfo['flat_number']);
 				$address->setBuildingNumber($addressInfo['building_number']);
 				$address->setStreet($addressInfo['street']);
