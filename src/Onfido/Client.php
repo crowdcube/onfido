@@ -152,7 +152,7 @@ class Client
 	 * @throws \InvalidArgumentException if the applicant_id is null
 	 * @throws Onfido\Exception\InvalidRequest if the supplied data for the identity check is not valid
 	 *
-	 * @param string $applicant The id of the applicant to run through an identity check
+	 * @param string $applicant_id The id of the applicant to run through an identity check
 	 *
 	 * @return Onfido\Report\IdentityReport The identity report result
 	 */
