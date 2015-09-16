@@ -2,7 +2,15 @@
     "name": "favor/onfido",
     "description": "A library to interact with the Onfido REST API",
     "license": "MIT",
-    "keywords": ["onfido"],
+    "keywords": ["onfido", "rest", "api", "background", "check"],
+    "homepage": "https://github.com/favordelivery/onfido",
+    "authors": [
+        {
+            "name": "Ruben Rangel",
+            "email": "ruben@askfavor.com",
+            "role": "developer"
+        }
+    ],
     "require": {
         "guzzlehttp/guzzle": "~6.0"
     },
