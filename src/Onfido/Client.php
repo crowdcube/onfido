@@ -149,21 +149,19 @@ class Client
 	/**
 	 * Runs an identity check for the supplied applicant.
 	 *
-	 * @throws \InvalidArgumentException if the applicant's ID is null
+	 * @throws \InvalidArgumentException if the applicant_id is null
 	 * @throws Onfido\Exception\InvalidRequest if the supplied data for the identity check is not valid
 	 *
-	 * @param Onfido\Applicant $applicant The applicant to run through an identity check
+	 * @param string $applicant The id of the applicant to run through an identity check
 	 *
 	 * @return Onfido\Report\IdentityReport The identity report result
 	 */
-	public function runIdentityCheck(Applicant $applicant)
+	public function runIdentityCheck($applicant_id)
 	{
-		if (is_null($applicant->getId()))
+		if (is_null($applicant_id))
 		{
 			throw new \InvalidArgumentException('Applicant\'s ID cannot be null.');
 		}
-
-		$applicant_id = $applicant->getId();
 
 		$post_fields = array(
 			'type' => 'express',

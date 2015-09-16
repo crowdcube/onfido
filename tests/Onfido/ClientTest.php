@@ -534,7 +534,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @expectedException Onfido\Exception\InvalidRequestException
-	 * 
+	 *
 	 * Identity check requires at least one address and a date of birth
 	 */
 	public function testRunIdentityCheckMissingData()
@@ -552,7 +552,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$client = new Client(self::ONFIDO_TOKEN);
 		$applicant = $client->createApplicant($params);
 
-		$client->runIdentityCheck($applicant);
+		$client->runIdentityCheck($applicant->getId());
 	}
 
 
@@ -591,7 +591,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$client = new Client(self::ONFIDO_TOKEN);
 		$applicant = $client->createApplicant($params);
 
-		$identityCheckReport = $client->runIdentityCheck($applicant);
+		$identityCheckReport = $client->runIdentityCheck($applicant->getId());
 		$this->assertInstanceOf('Onfido\Report\IdentityReport', $identityCheckReport);
 	}
 
