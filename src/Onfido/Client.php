@@ -17,12 +17,13 @@ class Client
 	protected $authToken;
 	protected $client;
 
-	public function __construct($authToken)
+	public function __construct($authToken, $verify_certs = true)
 	{
 		$this->authToken = $authToken;
 
 		$this->client = new GuzzleClient([
-			'base_uri' => 'https://api.onfido.com'
+			'base_uri' => 'https://api.onfido.com',
+			'verify' => $verify_certs
 		]);
 	}
 

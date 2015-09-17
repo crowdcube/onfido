@@ -13,7 +13,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithInvalidFirstName($first_name)
 	{
-		$client = new Client(self::ONFIDO_TOKEN);
+		$client = new Client(self::ONFIDO_TOKEN, false);
 		$params = array(
 			'first_name' => $first_name
 		);
@@ -36,7 +36,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCreateWithInvalidLastName($first_name, $last_name)
 	{
-		$client = new Client(self::ONFIDO_TOKEN);
+		$client = new Client(self::ONFIDO_TOKEN, false);
 		$params = array(
 			'first_name' => $first_name,
 			'last_name' => $last_name
@@ -62,7 +62,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	public function testValidTitles($title)
 	{
 		$faker = Factory::create();
-		$client = new Client(self::ONFIDO_TOKEN);
+		$client = new Client(self::ONFIDO_TOKEN, false);
 		$params = array(
 			'first_name' => $faker->firstName,
 			'last_name' => $faker->lastName,
@@ -91,7 +91,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	public function testInvalidTitles($title)
 	{
 		$faker = Factory::create();
-		$client = new Client(self::ONFIDO_TOKEN);
+		$client = new Client(self::ONFIDO_TOKEN, false);
 		$params = array(
 			'first_name' => $faker->firstName,
 			'last_name' => $faker->lastName,
@@ -118,7 +118,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	public function testValidGenders($gender)
 	{
 		$faker = Factory::create();
-		$client = new Client(self::ONFIDO_TOKEN);
+		$client = new Client(self::ONFIDO_TOKEN, false);
 		$params = array(
 			'first_name' => $faker->firstName,
 			'last_name' => $faker->lastName,
@@ -147,7 +147,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	public function testInvalidGenders($gender)
 	{
 		$faker = Factory::create();
-		$client = new Client(self::ONFIDO_TOKEN);
+		$client = new Client(self::ONFIDO_TOKEN, false);
 		$params = array(
 			'first_name' => $faker->firstName,
 			'last_name' => $faker->lastName,
@@ -175,7 +175,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	public function testValidCountries($country)
 	{
 		$faker = Factory::create();
-		$client = new Client(self::ONFIDO_TOKEN);
+		$client = new Client(self::ONFIDO_TOKEN, false);
 		$params = array(
 			'first_name' => $faker->firstName,
 			'last_name' => $faker->lastName,
@@ -205,7 +205,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	public function testInvalidCountries($country)
 	{
 		$faker = Factory::create();
-		$client = new Client(self::ONFIDO_TOKEN);
+		$client = new Client(self::ONFIDO_TOKEN, false);
 		$params = array(
 			'first_name' => $faker->firstName,
 			'last_name' => $faker->lastName,
@@ -232,7 +232,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	public function testValidPhoneNumbers($phone_number)
 	{
 		$faker = Factory::create();
-		$client = new Client(self::ONFIDO_TOKEN);
+		$client = new Client(self::ONFIDO_TOKEN, false);
 		$params = array(
 			'first_name' => $faker->firstName,
 			'last_name' => $faker->lastName,
@@ -264,7 +264,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	public function testValidMobileNumbers($phone_number)
 	{
 		$faker = Factory::create();
-		$client = new Client(self::ONFIDO_TOKEN);
+		$client = new Client(self::ONFIDO_TOKEN, false);
 		$params = array(
 			'first_name' => $faker->firstName,
 			'last_name' => $faker->lastName,
@@ -296,7 +296,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	public function testValidDatesOfBirth($dob)
 	{
 		$faker = Factory::create();
-		$client = new Client(self::ONFIDO_TOKEN);
+		$client = new Client(self::ONFIDO_TOKEN, false);
 		$params = array(
 			'first_name' => $faker->firstName,
 			'last_name' => $faker->lastName,
@@ -327,7 +327,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	public function testInvalidDatesOfBirth($dob)
 	{
 		$faker = Factory::create();
-		$client = new Client(self::ONFIDO_TOKEN);
+		$client = new Client(self::ONFIDO_TOKEN, false);
 		$params = array(
 			'first_name' => $faker->firstName,
 			'last_name' => $faker->lastName,
@@ -355,7 +355,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	public function testValidEmails($email)
 	{
 		$faker = Factory::create();
-		$client = new Client(self::ONFIDO_TOKEN);
+		$client = new Client(self::ONFIDO_TOKEN, false);
 		$params = array(
 			'first_name' => $faker->firstName,
 			'last_name' => $faker->lastName,
@@ -384,7 +384,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	public function testInvalidEmails($email)
 	{
 		$faker = Factory::create();
-		$client = new Client(self::ONFIDO_TOKEN);
+		$client = new Client(self::ONFIDO_TOKEN, false);
 		$params = array(
 			'first_name' => $faker->firstName,
 			'last_name' => $faker->lastName,
@@ -409,7 +409,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	public function testValidMiddleNames($middle_name)
 	{
 		$faker = Factory::create();
-		$client = new Client(self::ONFIDO_TOKEN);
+		$client = new Client(self::ONFIDO_TOKEN, false);
 		$params = array(
 			'first_name' => $faker->firstName,
 			'last_name' => $faker->lastName,
@@ -435,7 +435,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	public function testCreateApplicantWithAddress()
 	{
 		$faker = Factory::create();
-		$client = new Client(self::ONFIDO_TOKEN);
+		$client = new Client(self::ONFIDO_TOKEN, false);
 		$params = array(
 			'first_name' => $faker->firstName,
 			'last_name' => $faker->lastName,
@@ -461,7 +461,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testApplicantRetrievalUnknownId()
 	{
-		$client = new Client(self::ONFIDO_TOKEN);
+		$client = new Client(self::ONFIDO_TOKEN, false);
 		$applicant = $client->retrieveApplicant('testIDNoasdf');
 	}
 
@@ -492,7 +492,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			'country' => $country
 		);
 
-		$client = new Client(self::ONFIDO_TOKEN);
+		$client = new Client(self::ONFIDO_TOKEN, false);
 
 		// Create the applicant on Onfido
 		$applicant = $client->createApplicant($params);
@@ -549,7 +549,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			'last_name' => $last_name
 		);
 
-		$client = new Client(self::ONFIDO_TOKEN);
+		$client = new Client(self::ONFIDO_TOKEN, false);
 		$applicant = $client->createApplicant($params);
 
 		$client->runIdentityCheck($applicant->getId());
@@ -588,7 +588,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			)
 		);
 
-		$client = new Client(self::ONFIDO_TOKEN);
+		$client = new Client(self::ONFIDO_TOKEN, false);
 		$applicant = $client->createApplicant($params);
 
 		$identityCheckReport = $client->runIdentityCheck($applicant->getId());
@@ -607,7 +607,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			'last_name' => $last_name
 		);
 
-		$client = new Client(self::ONFIDO_TOKEN);
+		$client = new Client(self::ONFIDO_TOKEN, false);
 		$applicant = $client->createApplicant($params);
 		$applicant = $client->createApplicant($params);
 	}
@@ -642,7 +642,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			'country' => $country
 		);
 
-		$client = new Client(self::ONFIDO_TOKEN);
+		$client = new Client(self::ONFIDO_TOKEN, false);
 		$applicant = $client->createApplicant($params);
 		$applicant = $client->createApplicant($params);
 	}
