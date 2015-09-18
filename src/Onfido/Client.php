@@ -263,23 +263,10 @@ class Client
 		$applicant->setId($params['id']);
 		$applicant->setHref($params['href']);
 
-		if (empty($params['created_at']) === false)
-		{
-			$created_at_time = date_create_from_format('Y-m-d\TH:i:s\Z', $params['created_at']);
-			$created_at_timestamp = $created_at_time->getTimestamp();
-			$applicant->setCreatedAt($created_at_timestamp);
-		}
-
+		if (empty($params['created_at']) === false)  $applicant->setCreatedAt($params['created_at']);
 		if (empty($params['first_name']) === false)  $applicant->setFirstName($params['first_name']);
 		if (empty($params['last_name']) === false)   $applicant->setLastName($params['last_name']);
-
-		if (empty($params['dob']) === false)
-		{
-			$dob_date_time = date_create_from_format('Y-m-d', $params['dob']);
-			$dob_timestamp = $dob_date_time->getTimestamp();
-			$applicant->setDob($dob_timestamp);
-		}
-
+		if (empty($params['dob']) === false)         $applicant->setDob($params['dob']);
 		if (empty($params['email']) === false)       $applicant->setEmail($params['email']);
 		if (empty($params['title']) === false)       $applicant->setTitle($params['title']);
 		if (empty($params['middle_name']) === false) $applicant->setMiddleName($params['middle_name']);

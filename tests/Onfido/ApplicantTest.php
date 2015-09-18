@@ -17,30 +17,9 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals($id, $applicant->getId());
 	}
 
-	/**
-	 * @expectedException \InvalidArgumentException
-	 * @dataProvider invalidCreationDateProvider
-	 */
-	public function testInvalidCreatedAtDates($date)
-	{
-		$applicant = new Applicant();
-		$this->assertNull($applicant->getCreatedAt());
-		$applicant->setCreatedAt($date);
-	}
-
-	public function invalidCreationDateProvider()
-	{
-		return array(
-			array('2015/09/10'),
-			array('2015-09-10'),
-			array(null),
-			array('')
-		);
-	}
-
 	public function testCreatedAtGetterSetter()
 	{
-		$timestamp = 1441923403;
+		$timestamp = '2015-09-10T17:16:43Z';
 		$applicant = new Applicant();
 		$this->assertNull($applicant->getCreatedAt());
 		$applicant->setCreatedAt($timestamp);
@@ -175,30 +154,9 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
 		);
 	}
 
-	/**
-	 * @dataProvider invalidDatesOfBirthProvider
-	 * @expectedException \InvalidArgumentException
-	 */
-	public function testInvalidDatesOfBirth($dob)
-	{
-		$applicant = new Applicant();
-		$this->assertNull($applicant->getDob());
-		$applicant->setDob($dob);
-	}
-
-	public function invalidDatesOfBirthProvider()
-	{
-		return array(
-			array('2015/09/10'),
-			array('2015-09-10'),
-			array(null),
-			array('')
-		);
-	}
-
 	public function testValidDateOfBirth()
 	{
-		$timestamp = 1441923403;
+		$timestamp = '2015-09-10';
 		$applicant = new Applicant();
 		$this->assertNull($applicant->getDob());
 		$applicant->setDob($timestamp);

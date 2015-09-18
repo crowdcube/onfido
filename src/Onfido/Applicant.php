@@ -49,33 +49,22 @@ class Applicant implements \JsonSerializable
     /**
      * Gets the creation timestamp for the applicant.
      *
-     * @param string $format The date string format for the return string.
+     * @param string $format The creation timestamp for the applicant.
      *
-     * @return null|string The date and time of creation of the applicant, in the specified format.
+     * @return null|string The date and time of creation of the applicant.
      */
-    public function getCreatedAt($format = 'Y-m-d\TH:i:s\Z')
+    public function getCreatedAt()
     {
-        if (is_null($this->created_at))
-        {
-            return null;
-        }
-
-        $date_string = date($format, $this->created_at);
-        return $date_string;
+        return $this->created_at;
     }
 
     /**
-     * Sets the creation Unix timestamp for the applicant.
+     * Sets the creation timestamp for the applicant.
      *
-     * @param string $timestamp The Unix timestamp representing the creation date and time of the applicant's file.
+     * @param string $timestamp The timestamp representing the creation date and time of the applicant's file.
      */
     public function setCreatedAt($timestamp)
     {
-        if (!is_numeric($timestamp))
-        {
-            throw new \InvalidArgumentException('CreatedAt Timestamp must be a Unix integer timestamp.');
-        }
-
         $this->created_at = $timestamp;
     }
 
@@ -192,33 +181,18 @@ class Applicant implements \JsonSerializable
         $this->gender = $gender;
     }
 
-    public function getDob($format = 'Y-m-d')
+    public function getDob()
     {
-        if (is_null($this->dob))
-        {
-            return null;
-        }
-
-        $date_string = date($format, $this->dob);
-        return $date_string;
+        return $this->dob;
     }
 
     /**
      * Sets the birthdate of the applicant.
      *
-     * Expects an integer Unix timestamp.
-     *
-     * @throws \InvalidArgumentException when the timestamp is not an integer Unix timestamp
-     *
      * @param string $dob The timestamp of the applicant's birthdate.
      */
     public function setDob($timestamp)
     {
-        if (!is_numeric($timestamp))
-        {
-            throw new \InvalidArgumentException('Date of birth Timestamp must be a Unix integer timestamp.');
-        }
-
         $this->dob = $timestamp;
     }
 
