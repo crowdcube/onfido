@@ -1,4 +1,8 @@
 # Onfido
+[![Code Climate](https://codeclimate.com/github/favordelivery/onfido/badges/gpa.svg)](https://codeclimate.com/github/favordelivery/onfido)
+[![Test Coverage](https://codeclimate.com/github/favordelivery/onfido/badges/coverage.svg)](https://codeclimate.com/github/favordelivery/onfido/coverage)
+[![Build Status](https://travis-ci.org/favordelivery/onfido.svg)](https://travis-ci.org/favordelivery/onfido)
+
 A Composer library for Onfido's REST API
 
 ## Requirements

@@ -606,6 +606,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Onfido\Report\IdentityReport', $identityCheckReport);
 	}
 
+	/**
+	 * @expectedException Onfido\Exception\DuplicateApplicantCreationException
+	 */
 	public function testCreateApplicantTwice()
 	{
 		$faker = Factory::create();
@@ -636,6 +639,5 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$client = new Client(self::ONFIDO_TOKEN, false);
 		$applicant = $client->createApplicant($params);
 		$applicant2 = $client->createApplicant($params);
-		$this->assertNotEquals($applicant, $applicant2);
 	}
 }
