@@ -66,6 +66,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$params = array(
 			'first_name' => $faker->firstName,
 			'last_name' => $faker->lastName,
+			'email' => $faker->email,
 			'title' => $title
 		);
 
@@ -95,6 +96,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$params = array(
 			'first_name' => $faker->firstName,
 			'last_name' => $faker->lastName,
+			'email' => $faker->email,
 			'title' => $title
 		);
 
@@ -122,6 +124,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$params = array(
 			'first_name' => $faker->firstName,
 			'last_name' => $faker->lastName,
+			'email' => $faker->email,
 			'gender' => $gender
 		);
 
@@ -151,6 +154,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$params = array(
 			'first_name' => $faker->firstName,
 			'last_name' => $faker->lastName,
+			'email' => $faker->email,
 			'gender' => $gender
 		);
 
@@ -209,6 +213,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$params = array(
 			'first_name' => $faker->firstName,
 			'last_name' => $faker->lastName,
+			'email' => $faker->email,
 			'country' => $country
 		);
 
@@ -236,6 +241,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$params = array(
 			'first_name' => $faker->firstName,
 			'last_name' => $faker->lastName,
+			'email' => $faker->email,
 			'telephone' => $phone_number
 		);
 
@@ -268,6 +274,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$params = array(
 			'first_name' => $faker->firstName,
 			'last_name' => $faker->lastName,
+			'email' => $faker->email,
 			'mobile' => $phone_number
 		);
 
@@ -300,6 +307,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$params = array(
 			'first_name' => $faker->firstName,
 			'last_name' => $faker->lastName,
+			'email' => $faker->email,
 			'dob' => $dob
 		);
 
@@ -331,6 +339,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$params = array(
 			'first_name' => $faker->firstName,
 			'last_name' => $faker->lastName,
+			'email' => $faker->email,
 			'dob' => $dob
 		);
 
@@ -372,7 +381,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
 		return array(
 			array($faker->email),
-			array(null),
 			array(''),
 		);
 	}
@@ -413,6 +421,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$params = array(
 			'first_name' => $faker->firstName,
 			'last_name' => $faker->lastName,
+			'email' => $faker->email,
 			'middle_name' => $middle_name
 		);
 
@@ -439,6 +448,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$params = array(
 			'first_name' => $faker->firstName,
 			'last_name' => $faker->lastName,
+			'email' => $faker->email,
 			'addresses' => array(
 				array(
 					'building_number' => $faker->numberBetween(10, 10000),
@@ -469,10 +479,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	{
 		$faker = Factory::create();
 		$title = 'Mr';
-		$first_name = $faker->firstName;
-		$last_name = $faker->lastName;
+		$first_name = 'Lebron';
+		$last_name = 'Jordan';
 		$middle_name = $faker->firstName;
-		$email = $faker->email;
+		$email = strtolower($faker->email);
 		$gender = 'Male';
 		$dob = '1980-11-23';
 		$telephone = '11234567890';
@@ -546,7 +556,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
 		$params = array(
 			'first_name' => $first_name,
-			'last_name' => $last_name
+			'last_name' => $last_name,
+			'email' => $faker->email
 		);
 
 		$client = new Client(self::ONFIDO_TOKEN, false);
@@ -595,26 +606,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Onfido\Report\IdentityReport', $identityCheckReport);
 	}
 
-	public function testCreateApplicantTwiceFirstLastName()
-	{
-		$faker = Factory::create();
-
-		$first_name = $faker->firstName;
-		$last_name = $faker->lastName;
-
-		$params = array(
-			'first_name' => $first_name,
-			'last_name' => $last_name
-		);
-
-		$client = new Client(self::ONFIDO_TOKEN, false);
-		$applicant = $client->createApplicant($params);
-		$applicant = $client->createApplicant($params);
-	}
-
-	/**
-	 * @expectedException Onfido\Exception\DuplicateApplicantCreationException
-	 */
 	public function testCreateApplicantTwice()
 	{
 		$faker = Factory::create();
@@ -644,6 +635,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
 		$client = new Client(self::ONFIDO_TOKEN, false);
 		$applicant = $client->createApplicant($params);
-		$applicant = $client->createApplicant($params);
+		$applicant2 = $client->createApplicant($params);
+		$this->assertNotEquals($applicant, $applicant2);
 	}
 }
