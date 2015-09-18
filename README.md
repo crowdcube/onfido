@@ -1,6 +1,9 @@
 # Onfido
 A Composer library for Onfido's REST API
 
+## Requirements
+PHP 5.5
+
 ## Installation
 1) Add to Composer file
 ```json
