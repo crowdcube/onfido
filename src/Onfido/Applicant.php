@@ -254,6 +254,11 @@ class Applicant implements \JsonSerializable
         $this->addresses[] = $address;
     }
 
+    public function setAddresses(array $addresses)
+    {
+        $this->addresses = $addresses;
+    }
+
     public function jsonSerialize()
     {
         return array(
