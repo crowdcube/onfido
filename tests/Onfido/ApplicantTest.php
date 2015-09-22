@@ -314,4 +314,75 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
 		}';
 		$this->assertJsonStringEqualsJsonString($expected_json, $applicant_json);
 	}
+
+	public function testToArray()
+	{
+		$applicant = new Applicant();
+		$applicant->setTitle('Mr');
+		$applicant->setFirstName('Tester');
+		$applicant->setMiddleName('Miles');
+		$applicant->setLastName('Testerston');
+		$applicant->setEmail('test@testmail.com');
+		$applicant->setGender('male');
+		$applicant->setDob('1987/11/11');
+		$applicant->setTelephone('1234567890');
+		$applicant->setCountry('usa');
+		$applicant->setIdNumbers(
+			array(
+				array(
+					'type' => 'ssn',
+					'value' => '123-45-6789'
+				)
+			)
+		);
+
+		$address = new Address();
+		$address->setBuildingNumber('20');
+		$address->setStreet('Lavaca');
+		$address->setTown('San Diego');
+		$address->setState('CA');
+		$address->setPostcode('78702');
+		$address->setStartDate('1990/12/25');
+		$applicant->addAddress($address);
+
+		$expected = array(
+            'id' => null,
+            'created_at' => null,
+            'href' => null,
+			'title' => 'Mr',
+			'first_name' => 'Tester',
+			'middle_name' => 'Miles',
+			'last_name' => 'Testerston',
+			'email' => 'test@testmail.com',
+			'gender' => 'male',
+			'dob' => '1987/11/11',
+			'telephone' => '1234567890',
+			'mobile' => null,
+			'country' => 'usa',
+			'id_numbers' => array(
+				array(
+					'type' => 'ssn',
+					'value' => '123-45-6789'
+				)
+			),
+			'addresses' => array(
+				array(
+                    'flat_number' => null,
+                    'building_name' => null,
+					'building_number' => '20',
+					'street' => 'Lavaca',
+                    'sub_street' => null,
+					'state' => 'CA',
+					'town' => 'San Diego',
+					'postcode' => '78702',
+                    'country' => null,
+					'start_date' => '1990/12/25',
+					'end_date' => null
+				)
+			)
+		);
+
+		$actual = $applicant->toArray();
+		$this->assertEquals($expected, $actual);
+	}
 }

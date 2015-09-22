@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1442592126">
-  <project timestamp="1442592126">
+<coverage generated="1442958196">
+  <project timestamp="1442958196">
     <package name="Onfido">
       <file name="/Users/rubenrangel/Source/onfido/src/Onfido/Address.php">
         <class name="Address" namespace="Onfido">
-          <metrics methods="23" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="45" coveredstatements="0" elements="68" coveredelements="0"/>
+          <metrics methods="24" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="46" coveredstatements="24" elements="70" coveredelements="31"/>
         </class>
         <line num="19" type="method" name="getFlatNumber" crap="2" count="0"/>
         <line num="21" type="stmt" count="0"/>
@@ -18,14 +18,14 @@
         <line num="37" type="stmt" count="0"/>
         <line num="39" type="method" name="getBuildingNumber" crap="2" count="0"/>
         <line num="41" type="stmt" count="0"/>
-        <line num="44" type="method" name="setBuildingNumber" crap="2" count="0"/>
-        <line num="46" type="stmt" count="0"/>
-        <line num="47" type="stmt" count="0"/>
+        <line num="44" type="method" name="setBuildingNumber" crap="1" count="1"/>
+        <line num="46" type="stmt" count="1"/>
+        <line num="47" type="stmt" count="1"/>
         <line num="49" type="method" name="getStreet" crap="2" count="0"/>
         <line num="51" type="stmt" count="0"/>
-        <line num="54" type="method" name="setStreet" crap="2" count="0"/>
-        <line num="56" type="stmt" count="0"/>
-        <line num="57" type="stmt" count="0"/>
+        <line num="54" type="method" name="setStreet" crap="1" count="1"/>
+        <line num="56" type="stmt" count="1"/>
+        <line num="57" type="stmt" count="1"/>
         <line num="59" type="method" name="getSubStreet" crap="2" count="0"/>
         <line num="61" type="stmt" count="0"/>
         <line num="64" type="method" name="setSubStreet" crap="2" count="0"/>
@@ -33,19 +33,19 @@
         <line num="67" type="stmt" count="0"/>
         <line num="69" type="method" name="getState" crap="2" count="0"/>
         <line num="71" type="stmt" count="0"/>
-        <line num="74" type="method" name="setState" crap="2" count="0"/>
-        <line num="76" type="stmt" count="0"/>
-        <line num="77" type="stmt" count="0"/>
+        <line num="74" type="method" name="setState" crap="1" count="1"/>
+        <line num="76" type="stmt" count="1"/>
+        <line num="77" type="stmt" count="1"/>
         <line num="79" type="method" name="getTown" crap="2" count="0"/>
         <line num="81" type="stmt" count="0"/>
-        <line num="84" type="method" name="setTown" crap="2" count="0"/>
-        <line num="86" type="stmt" count="0"/>
-        <line num="87" type="stmt" count="0"/>
+        <line num="84" type="method" name="setTown" crap="1" count="1"/>
+        <line num="86" type="stmt" count="1"/>
+        <line num="87" type="stmt" count="1"/>
         <line num="89" type="method" name="getPostcode" crap="2" count="0"/>
         <line num="91" type="stmt" count="0"/>
-        <line num="94" type="method" name="setPostcode" crap="2" count="0"/>
-        <line num="96" type="stmt" count="0"/>
-        <line num="97" type="stmt" count="0"/>
+        <line num="94" type="method" name="setPostcode" crap="1" count="1"/>
+        <line num="96" type="stmt" count="1"/>
+        <line num="97" type="stmt" count="1"/>
         <line num="99" type="method" name="getCountry" crap="2" count="0"/>
         <line num="101" type="stmt" count="0"/>
         <line num="104" type="method" name="setCountry" crap="2" count="0"/>
@@ -53,121 +53,120 @@
         <line num="107" type="stmt" count="0"/>
         <line num="109" type="method" name="getStartDate" crap="2" count="0"/>
         <line num="111" type="stmt" count="0"/>
-        <line num="114" type="method" name="setStartDate" crap="2" count="0"/>
-        <line num="116" type="stmt" count="0"/>
-        <line num="117" type="stmt" count="0"/>
+        <line num="114" type="method" name="setStartDate" crap="1" count="1"/>
+        <line num="116" type="stmt" count="1"/>
+        <line num="117" type="stmt" count="1"/>
         <line num="119" type="method" name="getEndDate" crap="2" count="0"/>
         <line num="121" type="stmt" count="0"/>
         <line num="124" type="method" name="setEndDate" crap="2" count="0"/>
         <line num="126" type="stmt" count="0"/>
         <line num="127" type="stmt" count="0"/>
         <line num="129" type="method" name="jsonSerialize" crap="2" count="0"/>
-        <line num="132" type="stmt" count="0"/>
-        <line num="133" type="stmt" count="0"/>
-        <line num="134" type="stmt" count="0"/>
-        <line num="135" type="stmt" count="0"/>
-        <line num="136" type="stmt" count="0"/>
-        <line num="137" type="stmt" count="0"/>
-        <line num="138" type="stmt" count="0"/>
-        <line num="139" type="stmt" count="0"/>
-        <line num="140" type="stmt" count="0"/>
-        <line num="141" type="stmt" count="0"/>
-        <line num="142" type="stmt" count="0"/>
-        <line num="143" type="stmt" count="0"/>
-        <metrics loc="145" ncloc="141" classes="1" methods="23" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="45" coveredstatements="0" elements="68" coveredelements="0"/>
+        <line num="131" type="stmt" count="0"/>
+        <line num="134" type="method" name="toArray" crap="1" count="1"/>
+        <line num="137" type="stmt" count="1"/>
+        <line num="138" type="stmt" count="1"/>
+        <line num="139" type="stmt" count="1"/>
+        <line num="140" type="stmt" count="1"/>
+        <line num="141" type="stmt" count="1"/>
+        <line num="142" type="stmt" count="1"/>
+        <line num="143" type="stmt" count="1"/>
+        <line num="144" type="stmt" count="1"/>
+        <line num="145" type="stmt" count="1"/>
+        <line num="146" type="stmt" count="1"/>
+        <line num="147" type="stmt" count="1"/>
+        <line num="148" type="stmt" count="1"/>
+        <metrics loc="150" ncloc="146" classes="1" methods="24" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="46" coveredstatements="24" elements="70" coveredelements="31"/>
       </file>
       <file name="/Users/rubenrangel/Source/onfido/src/Onfido/Applicant.php">
         <class name="Applicant" namespace="Onfido">
-          <metrics methods="31" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="66" coveredstatements="12" elements="97" coveredelements="18"/>
+          <metrics methods="33" coveredmethods="11" conditionals="0" coveredconditionals="0" statements="87" coveredstatements="46" elements="120" coveredelements="57"/>
         </class>
-        <line num="34" type="method" name="getId" crap="2" count="0"/>
-        <line num="36" type="stmt" count="0"/>
-        <line num="44" type="method" name="setId" crap="1" count="1"/>
-        <line num="46" type="stmt" count="1"/>
-        <line num="47" type="stmt" count="1"/>
-        <line num="56" type="method" name="getCreatedAt" crap="2" count="0"/>
-        <line num="58" type="stmt" count="0"/>
-        <line num="66" type="method" name="setCreatedAt" crap="1" count="1"/>
-        <line num="68" type="stmt" count="1"/>
-        <line num="69" type="stmt" count="1"/>
-        <line num="76" type="method" name="getHref" crap="2" count="0"/>
-        <line num="78" type="stmt" count="0"/>
-        <line num="86" type="method" name="setHref" crap="1" count="1"/>
-        <line num="88" type="stmt" count="1"/>
-        <line num="89" type="stmt" count="1"/>
-        <line num="96" type="method" name="getTitle" crap="2" count="0"/>
-        <line num="98" type="stmt" count="0"/>
-        <line num="110" type="method" name="setTitle" crap="6" count="0"/>
-        <line num="112" type="stmt" count="0"/>
-        <line num="113" type="stmt" count="0"/>
-        <line num="114" type="stmt" count="0"/>
-        <line num="117" type="stmt" count="0"/>
-        <line num="118" type="stmt" count="0"/>
-        <line num="120" type="method" name="setFirstName" crap="1" count="1"/>
-        <line num="122" type="stmt" count="1"/>
+        <line num="37" type="method" name="getId" crap="2" count="0"/>
+        <line num="39" type="stmt" count="0"/>
+        <line num="47" type="method" name="setId" crap="2" count="0"/>
+        <line num="49" type="stmt" count="0"/>
+        <line num="50" type="stmt" count="0"/>
+        <line num="57" type="method" name="getCreatedAt" crap="1" count="1"/>
+        <line num="59" type="stmt" count="1"/>
+        <line num="67" type="method" name="setCreatedAt" crap="2" count="0"/>
+        <line num="69" type="stmt" count="0"/>
+        <line num="70" type="stmt" count="0"/>
+        <line num="77" type="method" name="getHref" crap="2" count="0"/>
+        <line num="79" type="stmt" count="0"/>
+        <line num="87" type="method" name="setHref" crap="2" count="0"/>
+        <line num="89" type="stmt" count="0"/>
+        <line num="90" type="stmt" count="0"/>
+        <line num="97" type="method" name="getTitle" crap="2" count="0"/>
+        <line num="99" type="stmt" count="0"/>
+        <line num="111" type="method" name="setTitle" crap="2.03" count="1"/>
+        <line num="113" type="stmt" count="1"/>
+        <line num="114" type="stmt" count="1"/>
+        <line num="115" type="stmt" count="0"/>
+        <line num="118" type="stmt" count="1"/>
+        <line num="119" type="stmt" count="1"/>
+        <line num="121" type="method" name="setFirstName" crap="1" count="1"/>
         <line num="123" type="stmt" count="1"/>
-        <line num="125" type="method" name="getFirstName" crap="2" count="0"/>
-        <line num="127" type="stmt" count="0"/>
-        <line num="130" type="method" name="setMiddleName" crap="2" count="0"/>
-        <line num="132" type="stmt" count="0"/>
-        <line num="133" type="stmt" count="0"/>
-        <line num="135" type="method" name="getMiddleName" crap="2" count="0"/>
-        <line num="137" type="stmt" count="0"/>
-        <line num="140" type="method" name="setLastName" crap="1" count="1"/>
-        <line num="142" type="stmt" count="1"/>
+        <line num="124" type="stmt" count="1"/>
+        <line num="126" type="method" name="getFirstName" crap="2" count="0"/>
+        <line num="128" type="stmt" count="0"/>
+        <line num="131" type="method" name="setMiddleName" crap="1" count="1"/>
+        <line num="133" type="stmt" count="1"/>
+        <line num="134" type="stmt" count="1"/>
+        <line num="136" type="method" name="getMiddleName" crap="2" count="0"/>
+        <line num="138" type="stmt" count="0"/>
+        <line num="141" type="method" name="setLastName" crap="1" count="1"/>
         <line num="143" type="stmt" count="1"/>
-        <line num="145" type="method" name="getLastName" crap="2" count="0"/>
-        <line num="147" type="stmt" count="0"/>
-        <line num="150" type="method" name="getEmail" crap="2" count="0"/>
-        <line num="152" type="stmt" count="0"/>
-        <line num="155" type="method" name="setEmail" crap="2" count="0"/>
-        <line num="157" type="stmt" count="0"/>
-        <line num="158" type="stmt" count="0"/>
-        <line num="160" type="method" name="getGender" crap="2" count="0"/>
-        <line num="162" type="stmt" count="0"/>
-        <line num="174" type="method" name="setGender" crap="6" count="0"/>
-        <line num="176" type="stmt" count="0"/>
-        <line num="177" type="stmt" count="0"/>
-        <line num="178" type="stmt" count="0"/>
-        <line num="181" type="stmt" count="0"/>
-        <line num="182" type="stmt" count="0"/>
-        <line num="184" type="method" name="getDob" crap="2" count="0"/>
-        <line num="186" type="stmt" count="0"/>
-        <line num="194" type="method" name="setDob" crap="2" count="0"/>
-        <line num="196" type="stmt" count="0"/>
-        <line num="197" type="stmt" count="0"/>
-        <line num="199" type="method" name="getTelephone" crap="2" count="0"/>
-        <line num="201" type="stmt" count="0"/>
-        <line num="204" type="method" name="setTelephone" crap="2" count="0"/>
-        <line num="206" type="stmt" count="0"/>
-        <line num="207" type="stmt" count="0"/>
-        <line num="209" type="method" name="getMobile" crap="2" count="0"/>
-        <line num="211" type="stmt" count="0"/>
-        <line num="214" type="method" name="setMobile" crap="2" count="0"/>
-        <line num="216" type="stmt" count="0"/>
+        <line num="144" type="stmt" count="1"/>
+        <line num="146" type="method" name="getLastName" crap="2" count="0"/>
+        <line num="148" type="stmt" count="0"/>
+        <line num="151" type="method" name="getEmail" crap="2" count="0"/>
+        <line num="153" type="stmt" count="0"/>
+        <line num="156" type="method" name="setEmail" crap="1" count="1"/>
+        <line num="158" type="stmt" count="1"/>
+        <line num="159" type="stmt" count="1"/>
+        <line num="161" type="method" name="getGender" crap="2" count="0"/>
+        <line num="163" type="stmt" count="0"/>
+        <line num="175" type="method" name="setGender" crap="2.03" count="1"/>
+        <line num="177" type="stmt" count="1"/>
+        <line num="178" type="stmt" count="1"/>
+        <line num="179" type="stmt" count="0"/>
+        <line num="182" type="stmt" count="1"/>
+        <line num="183" type="stmt" count="1"/>
+        <line num="185" type="method" name="getDob" crap="2" count="0"/>
+        <line num="187" type="stmt" count="0"/>
+        <line num="195" type="method" name="setDob" crap="1" count="1"/>
+        <line num="197" type="stmt" count="1"/>
+        <line num="198" type="stmt" count="1"/>
+        <line num="200" type="method" name="getTelephone" crap="2" count="0"/>
+        <line num="202" type="stmt" count="0"/>
+        <line num="205" type="method" name="setTelephone" crap="1" count="1"/>
+        <line num="207" type="stmt" count="1"/>
+        <line num="208" type="stmt" count="1"/>
+        <line num="210" type="method" name="getMobile" crap="2" count="0"/>
+        <line num="212" type="stmt" count="0"/>
+        <line num="215" type="method" name="setMobile" crap="2" count="0"/>
         <line num="217" type="stmt" count="0"/>
-        <line num="219" type="method" name="getCountry" crap="2" count="0"/>
-        <line num="221" type="stmt" count="0"/>
-        <line num="232" type="method" name="setCountry" crap="1" count="1"/>
-        <line num="234" type="stmt" count="1"/>
+        <line num="218" type="stmt" count="0"/>
+        <line num="220" type="method" name="getCountry" crap="2" count="0"/>
+        <line num="222" type="stmt" count="0"/>
+        <line num="233" type="method" name="setCountry" crap="1" count="1"/>
         <line num="235" type="stmt" count="1"/>
-        <line num="237" type="method" name="getIdNumbers" crap="2" count="0"/>
-        <line num="239" type="stmt" count="0"/>
-        <line num="242" type="method" name="setIdNumbers" crap="2" count="0"/>
-        <line num="244" type="stmt" count="0"/>
-        <line num="245" type="stmt" count="0"/>
-        <line num="247" type="method" name="getAddresses" crap="2" count="0"/>
-        <line num="249" type="stmt" count="0"/>
-        <line num="252" type="method" name="addAddress" crap="2" count="0"/>
-        <line num="254" type="stmt" count="0"/>
-        <line num="255" type="stmt" count="0"/>
-        <line num="257" type="method" name="jsonSerialize" crap="2" count="0"/>
+        <line num="236" type="stmt" count="1"/>
+        <line num="238" type="method" name="getIdNumbers" crap="2" count="0"/>
+        <line num="240" type="stmt" count="0"/>
+        <line num="243" type="method" name="setIdNumbers" crap="1" count="1"/>
+        <line num="245" type="stmt" count="1"/>
+        <line num="246" type="stmt" count="1"/>
+        <line num="248" type="method" name="getAddresses" crap="2" count="0"/>
+        <line num="250" type="stmt" count="0"/>
+        <line num="253" type="method" name="addAddress" crap="1" count="1"/>
+        <line num="255" type="stmt" count="1"/>
+        <line num="256" type="stmt" count="1"/>
+        <line num="258" type="method" name="setAddresses" crap="2" count="0"/>
         <line num="260" type="stmt" count="0"/>
         <line num="261" type="stmt" count="0"/>
-        <line num="262" type="stmt" count="0"/>
-        <line num="263" type="stmt" count="0"/>
-        <line num="264" type="stmt" count="0"/>
-        <line num="265" type="stmt" count="0"/>
+        <line num="263" type="method" name="jsonSerialize" crap="2" count="0"/>
         <line num="266" type="stmt" count="0"/>
         <line num="267" type="stmt" count="0"/>
         <line num="268" type="stmt" count="0"/>
@@ -177,7 +176,33 @@
         <line num="272" type="stmt" count="0"/>
         <line num="273" type="stmt" count="0"/>
         <line num="274" type="stmt" count="0"/>
-        <metrics loc="275" ncloc="201" classes="1" methods="31" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="66" coveredstatements="12" elements="97" coveredelements="18"/>
+        <line num="275" type="stmt" count="0"/>
+        <line num="276" type="stmt" count="0"/>
+        <line num="277" type="stmt" count="0"/>
+        <line num="278" type="stmt" count="0"/>
+        <line num="279" type="stmt" count="0"/>
+        <line num="280" type="stmt" count="0"/>
+        <line num="288" type="method" name="toArray" crap="2" count="1"/>
+        <line num="290" type="stmt" count="1"/>
+        <line num="292" type="stmt" count="1"/>
+        <line num="294" type="stmt" count="1"/>
+        <line num="295" type="stmt" count="1"/>
+        <line num="298" type="stmt" count="1"/>
+        <line num="299" type="stmt" count="1"/>
+        <line num="300" type="stmt" count="1"/>
+        <line num="301" type="stmt" count="1"/>
+        <line num="302" type="stmt" count="1"/>
+        <line num="303" type="stmt" count="1"/>
+        <line num="304" type="stmt" count="1"/>
+        <line num="305" type="stmt" count="1"/>
+        <line num="306" type="stmt" count="1"/>
+        <line num="307" type="stmt" count="1"/>
+        <line num="308" type="stmt" count="1"/>
+        <line num="309" type="stmt" count="1"/>
+        <line num="310" type="stmt" count="1"/>
+        <line num="311" type="stmt" count="1"/>
+        <line num="313" type="stmt" count="1"/>
+        <metrics loc="314" ncloc="236" classes="1" methods="33" coveredmethods="11" conditionals="0" coveredconditionals="0" statements="87" coveredstatements="46" elements="120" coveredelements="57"/>
       </file>
       <file name="/Users/rubenrangel/Source/onfido/src/Onfido/Check.php">
         <class name="Check" namespace="Onfido">
@@ -212,59 +237,55 @@
       </file>
       <file name="/Users/rubenrangel/Source/onfido/src/Onfido/Client.php">
         <class name="Client" namespace="Onfido">
-          <metrics methods="7" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="145" coveredstatements="51" elements="152" coveredelements="53"/>
+          <metrics methods="7" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="141" coveredstatements="0" elements="148" coveredelements="0"/>
         </class>
-        <line num="20" type="method" name="__construct" crap="1" count="1"/>
-        <line num="22" type="stmt" count="1"/>
-        <line num="24" type="stmt" count="1"/>
-        <line num="25" type="stmt" count="1"/>
-        <line num="27" type="stmt" count="1"/>
-        <line num="28" type="stmt" count="1"/>
-        <line num="38" type="method" name="createApplicant" crap="28.51" count="1"/>
-        <line num="40" type="stmt" count="1"/>
-        <line num="42" type="stmt" count="1"/>
-        <line num="43" type="stmt" count="1"/>
-        <line num="44" type="stmt" count="1"/>
-        <line num="45" type="stmt" count="1"/>
-        <line num="46" type="stmt" count="1"/>
-        <line num="47" type="stmt" count="1"/>
-        <line num="48" type="stmt" count="1"/>
-        <line num="49" type="stmt" count="1"/>
-        <line num="50" type="stmt" count="1"/>
-        <line num="51" type="stmt" count="1"/>
-        <line num="52" type="stmt" count="1"/>
-        <line num="53" type="stmt" count="1"/>
-        <line num="55" type="stmt" count="1"/>
-        <line num="59" type="stmt" count="1"/>
-        <line num="61" type="stmt" count="1"/>
-        <line num="62" type="stmt" count="1"/>
-        <line num="64" type="stmt" count="1"/>
-        <line num="65" type="stmt" count="1"/>
-        <line num="66" type="stmt" count="1"/>
+        <line num="20" type="method" name="__construct" crap="2" count="0"/>
+        <line num="22" type="stmt" count="0"/>
+        <line num="24" type="stmt" count="0"/>
+        <line num="25" type="stmt" count="0"/>
+        <line num="27" type="stmt" count="0"/>
+        <line num="28" type="stmt" count="0"/>
+        <line num="40" type="method" name="createApplicant" crap="306" count="0"/>
+        <line num="42" type="stmt" count="0"/>
+        <line num="44" type="stmt" count="0"/>
+        <line num="45" type="stmt" count="0"/>
+        <line num="46" type="stmt" count="0"/>
+        <line num="47" type="stmt" count="0"/>
+        <line num="48" type="stmt" count="0"/>
+        <line num="49" type="stmt" count="0"/>
+        <line num="50" type="stmt" count="0"/>
+        <line num="51" type="stmt" count="0"/>
+        <line num="52" type="stmt" count="0"/>
+        <line num="53" type="stmt" count="0"/>
+        <line num="54" type="stmt" count="0"/>
+        <line num="55" type="stmt" count="0"/>
+        <line num="57" type="stmt" count="0"/>
+        <line num="61" type="stmt" count="0"/>
+        <line num="63" type="stmt" count="0"/>
+        <line num="64" type="stmt" count="0"/>
+        <line num="66" type="stmt" count="0"/>
         <line num="68" type="stmt" count="0"/>
-        <line num="69" type="stmt" count="0"/>
         <line num="70" type="stmt" count="0"/>
-        <line num="71" type="stmt" count="0"/>
         <line num="72" type="stmt" count="0"/>
+        <line num="73" type="stmt" count="0"/>
         <line num="74" type="stmt" count="0"/>
-        <line num="75" type="stmt" count="0"/>
         <line num="76" type="stmt" count="0"/>
+        <line num="77" type="stmt" count="0"/>
         <line num="78" type="stmt" count="0"/>
-        <line num="79" type="stmt" count="0"/>
         <line num="80" type="stmt" count="0"/>
-        <line num="84" type="stmt" count="0"/>
-        <line num="90" type="stmt" count="0"/>
-        <line num="96" type="stmt" count="0"/>
-        <line num="100" type="stmt" count="1"/>
-        <line num="101" type="stmt" count="1"/>
-        <line num="102" type="stmt" count="1"/>
-        <line num="104" type="stmt" count="1"/>
-        <line num="106" type="stmt" count="1"/>
-        <line num="107" type="stmt" count="1"/>
-        <line num="109" type="stmt" count="1"/>
-        <line num="123" type="method" name="retrieveApplicant" crap="10.32" count="1"/>
+        <line num="81" type="stmt" count="0"/>
+        <line num="82" type="stmt" count="0"/>
+        <line num="86" type="stmt" count="0"/>
+        <line num="92" type="stmt" count="0"/>
+        <line num="98" type="stmt" count="0"/>
+        <line num="102" type="stmt" count="0"/>
+        <line num="103" type="stmt" count="0"/>
+        <line num="104" type="stmt" count="0"/>
+        <line num="106" type="stmt" count="0"/>
+        <line num="107" type="stmt" count="0"/>
+        <line num="109" type="stmt" count="0"/>
+        <line num="123" type="method" name="retrieveApplicant" crap="12" count="0"/>
         <line num="127" type="stmt" count="0"/>
-        <line num="128" type="stmt" count="1"/>
         <line num="129" type="stmt" count="0"/>
         <line num="130" type="stmt" count="0"/>
         <line num="131" type="stmt" count="0"/>
@@ -331,22 +352,22 @@
         <line num="256" type="stmt" count="0"/>
         <line num="258" type="stmt" count="0"/>
         <line num="260" type="stmt" count="0"/>
-        <line num="263" type="method" name="populateApplicantWithResponse" crap="36.20" count="1"/>
-        <line num="265" type="stmt" count="1"/>
-        <line num="266" type="stmt" count="1"/>
-        <line num="268" type="stmt" count="1"/>
-        <line num="269" type="stmt" count="1"/>
-        <line num="270" type="stmt" count="1"/>
-        <line num="271" type="stmt" count="1"/>
-        <line num="272" type="stmt" count="1"/>
-        <line num="273" type="stmt" count="1"/>
-        <line num="274" type="stmt" count="1"/>
-        <line num="275" type="stmt" count="1"/>
-        <line num="276" type="stmt" count="1"/>
-        <line num="277" type="stmt" count="1"/>
-        <line num="278" type="stmt" count="1"/>
-        <line num="281" type="stmt" count="1"/>
-        <line num="282" type="stmt" count="1"/>
+        <line num="263" type="method" name="populateApplicantWithResponse" crap="210" count="0"/>
+        <line num="265" type="stmt" count="0"/>
+        <line num="266" type="stmt" count="0"/>
+        <line num="268" type="stmt" count="0"/>
+        <line num="269" type="stmt" count="0"/>
+        <line num="270" type="stmt" count="0"/>
+        <line num="271" type="stmt" count="0"/>
+        <line num="272" type="stmt" count="0"/>
+        <line num="273" type="stmt" count="0"/>
+        <line num="274" type="stmt" count="0"/>
+        <line num="275" type="stmt" count="0"/>
+        <line num="276" type="stmt" count="0"/>
+        <line num="277" type="stmt" count="0"/>
+        <line num="278" type="stmt" count="0"/>
+        <line num="281" type="stmt" count="0"/>
+        <line num="282" type="stmt" count="0"/>
         <line num="283" type="stmt" count="0"/>
         <line num="285" type="stmt" count="0"/>
         <line num="287" type="stmt" count="0"/>
@@ -362,11 +383,11 @@
         <line num="298" type="stmt" count="0"/>
         <line num="299" type="stmt" count="0"/>
         <line num="300" type="stmt" count="0"/>
-        <line num="301" type="stmt" count="1"/>
-        <line num="312" type="method" name="cleanQuery" crap="1" count="1"/>
-        <line num="314" type="stmt" count="1"/>
-        <line num="315" type="stmt" count="1"/>
-        <metrics loc="318" ncloc="272" classes="1" methods="7" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="145" coveredstatements="51" elements="152" coveredelements="53"/>
+        <line num="301" type="stmt" count="0"/>
+        <line num="312" type="method" name="cleanQuery" crap="2" count="0"/>
+        <line num="314" type="stmt" count="0"/>
+        <line num="315" type="stmt" count="0"/>
+        <metrics loc="318" ncloc="270" classes="1" methods="7" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="141" coveredstatements="0" elements="148" coveredelements="0"/>
       </file>
     </package>
     <package name="Onfido\Exception">
@@ -514,6 +535,6 @@
         <metrics loc="77" ncloc="65" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="38" coveredstatements="0" elements="40" coveredelements="0"/>
       </file>
     </package>
-    <metrics files="11" loc="1098" ncloc="918" classes="11" methods="94" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="347" coveredstatements="63" elements="441" coveredelements="71"/>
+    <metrics files="11" loc="1142" ncloc="956" classes="11" methods="97" coveredmethods="18" conditionals="0" coveredconditionals="0" statements="365" coveredstatements="70" elements="462" coveredelements="88"/>
   </project>
 </coverage>
