@@ -5,7 +5,7 @@ namespace Onfido;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Exception\ClientException;
-
+use InvalidArgumentException;
 use Onfido\Report\ReportFactory;
 use Onfido\Exception\ApplicantNotFoundException;
 use Onfido\Exception\ModelRetrievalException;
@@ -30,10 +30,12 @@ class Client
 	/**
 	 * Creates an applicant record in Onfido.
 	 *
-	 * @throws Onfido\Exception\DuplicateApplicantCreationException when an appllicant with the same data exists.
-	 * @throws Onfido\Exception\InvalidRequestException when the create request could not be processed
+	 * @throws \Onfido\Exception\DuplicateApplicantCreationException when an appllicant with the same data exists.
+	 * @throws \Onfido\Exception\InvalidRequestException when the create request could not be processed
 	 *
-	 * @return Onfido\Applicant The applicant model filled with the supplied data.
+	 * @param array $params An Array of fields to create the user.
+	 *
+	 * @return Applicant The applicant model filled with the supplied data.
 	 */
 	public function createApplicant($params)
 	{
@@ -111,12 +113,12 @@ class Client
 	 * Creates a new Onfido\Applicant and loads it with data retrieved from the remote
 	 * data source.
 	 *
-	 * @throws Onfido\Exception\ApplicantNotFoundException when the applicant with the ID cannot be found
-	 * @throws Onfido\Exception\ModelRetrievalException when there was an error retrieving the applicant's data
+	 * @throws \Onfido\Exception\ApplicantNotFoundException when the applicant with the ID cannot be found
+	 * @throws \Onfido\Exception\ModelRetrievalException when there was an error retrieving the applicant's data
 	 *
-	 * @param string $id The ID of the applicant.
+	 * @param string $applicant_id The ID of the applicant.
 	 *
-	 * @return Onfido\Applicant The loaded applicant.
+	 * @return \Onfido\Applicant The loaded applicant.
 	 */
 	public function retrieveApplicant($applicant_id)
 	{
@@ -134,7 +136,7 @@ class Client
 		}
 		catch (TransferException $e)
 		{
-			throw new ModelRetrievalException('An error occured while retrieving the remote resource.', $e->getCode, $e);
+			throw new ModelRetrievalException('An error occured while retrieving the remote resource.', $e->getCode(), $e);
 		}
 
 		$body = $response->getBody();
@@ -151,17 +153,17 @@ class Client
 	 * Runs an identity check for the supplied applicant.
 	 *
 	 * @throws \InvalidArgumentException if the applicant_id is null
-	 * @throws Onfido\Exception\InvalidRequest if the supplied data for the identity check is not valid
+	 * @throws \Onfido\Exception\InvalidRequestException if the supplied data for the identity check is not valid
 	 *
 	 * @param string $applicant_id The id of the applicant to run through an identity check
 	 *
-	 * @return Onfido\Report\IdentityReport The identity report result
+	 * @return \Onfido\Report\BaseReport The identity report result
 	 */
 	public function runIdentityCheck($applicant_id)
 	{
 		if (is_null($applicant_id))
 		{
-			throw new \InvalidArgumentException('Applicant\'s ID cannot be null.');
+			throw new InvalidArgumentException('Applicant\'s ID cannot be null.');
 		}
 
 		$post_fields = array(

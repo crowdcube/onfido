@@ -16,7 +16,7 @@ class ReportFactory
 	 * not a supported report type.
 	 * 
 	 * @param array $data An array containing the data to populate the report.
-	 * @return Onfido\Report\BaseReport
+	 * @return \Onfido\Report\BaseReport
 	 */
 	public function createReport(array $data)
 	{
