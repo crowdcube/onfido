@@ -3,7 +3,6 @@
 namespace Onfido;
 
 use InvalidArgumentException;
-use Onfido\Address;
 
 class Applicant implements \JsonSerializable
 {
@@ -24,7 +23,11 @@ class Applicant implements \JsonSerializable
     protected $mobile;
     protected $country;
     protected $id_numbers = [];
-    protected $addresses = []; // array of Onfido\Address instances
+
+    /**
+     * @var Address[]
+     */
+    protected $addresses = [];
 
     /**
      * Gets the Onfido ID for the applicant.
@@ -48,8 +51,6 @@ class Applicant implements \JsonSerializable
 
     /**
      * Gets the creation timestamp for the applicant.
-     *
-     * @param string $format The creation timestamp for the applicant.
      *
      * @return null|string The date and time of creation of the applicant.
      */
@@ -189,7 +190,7 @@ class Applicant implements \JsonSerializable
     /**
      * Sets the birthdate of the applicant.
      *
-     * @param string $dob The timestamp of the applicant's birthdate.
+     * @param string $timestamp The timestamp of the applicant's birthdate.
      */
     public function setDob($timestamp)
     {
@@ -276,6 +277,38 @@ class Applicant implements \JsonSerializable
             'country' => $this->country,
             'id_numbers' => $this->id_numbers,
             'addresses' => $this->addresses
+        );
+    }
+
+    /**
+     * Flattens out the Applicant to make it easy to upload via the Onfido API
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        $addresses = [];
+
+        foreach ($this->addresses as $address)
+        {
+            $addresses[] = $address->toArray();
+        }
+
+        return array(
+            'id' => $this->id,
+            'created_at' => $this->getCreatedAt(),
+            'href' => $this->href,
+            'title' => $this->title,
+            'first_name' => $this->first_name,
+            'middle_name' => $this->middle_name,
+            'last_name' => $this->last_name,
+            'gender' => $this->gender,
+            'dob' => $this->dob,
+            'telephone' => $this->telephone,
+            'mobile' => $this->mobile,
+            'country' => $this->country,
+            'id_numbers' => $this->id_numbers,
+            'addresses' => $addresses
         );
     }
 }

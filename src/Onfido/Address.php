@@ -128,6 +128,11 @@ class Address implements \JsonSerializable
 
     public function jsonSerialize()
     {
+        return $this->toArray();
+    }
+
+    public function toArray()
+    {
         return array(
             'flat_number' => $this->flat_number,
             'building_name' => $this->building_name,
