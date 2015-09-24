@@ -6,8 +6,8 @@ use InvalidArgumentException;
 
 class Applicant implements \JsonSerializable
 {
-    protected static $allowed_titles = ['Mr', 'Ms', 'Mrs', 'Miss'];
-    protected static $allowed_genders = ['male', 'Male', 'female', 'Female'];
+    protected static $allowed_titles = [null, 'Mr', 'Ms', 'Mrs', 'Miss'];
+    protected static $allowed_genders = [null, 'male', 'Male', 'female', 'Female'];
 
     protected $id;
     protected $created_at; // Unix timestamp

@@ -265,17 +265,16 @@ class Client
 		$applicant->setId($params['id']);
 		$applicant->setHref($params['href']);
 
-		if (empty($params['created_at']) === false)  $applicant->setCreatedAt($params['created_at']);
-		if (empty($params['first_name']) === false)  $applicant->setFirstName($params['first_name']);
-		if (empty($params['last_name']) === false)   $applicant->setLastName($params['last_name']);
-		if (empty($params['dob']) === false)         $applicant->setDob($params['dob']);
-		if (empty($params['email']) === false)       $applicant->setEmail($params['email']);
-		if (empty($params['title']) === false)       $applicant->setTitle($params['title']);
-		if (empty($params['middle_name']) === false) $applicant->setMiddleName($params['middle_name']);
-		if (empty($params['gender']) === false)      $applicant->setGender($params['gender']);
-		if (empty($params['telephone']) === false)   $applicant->setTelephone($params['telephone']);
-		if (empty($params['mobile']) === false)      $applicant->setMobile($params['mobile']);
-		if (empty($params['country']) === false)     $applicant->setCountry($params['country']);
+		 $applicant->setCreatedAt($params['created_at']);
+		 $applicant->setFirstName($params['first_name']); $applicant->setLastName($params['last_name']);
+		 $applicant->setDob($params['dob']);
+		 $applicant->setEmail($params['email']);
+		 $applicant->setTitle($params['title']);
+		 $applicant->setMiddleName($params['middle_name']);
+		 $applicant->setGender($params['gender']);
+		 $applicant->setTelephone($params['telephone']);
+		 $applicant->setMobile($params['mobile']);
+		 $applicant->setCountry($params['country']);
 
 
 		if (empty($params['addresses']) === false)

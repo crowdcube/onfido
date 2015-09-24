@@ -52,7 +52,8 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
 			array('Mr'),
 			array('Ms'),
 			array('Mrs'),
-			array('Miss')
+			array('Miss'),
+			array(null)
 		);
 	}
 
@@ -129,7 +130,8 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
 			array('male'),
 			array('Male'),
 			array('female'),
-			array('Female')
+			array('Female'),
+			array(null)
 		);
 	}
 
