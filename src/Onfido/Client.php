@@ -216,6 +216,63 @@ class Client
 		return $identity_report;
 	}
 
+    public function retrieveCheck($applicant_id, $check_id, $load_reports = true)
+    {
+        $url = "/v1/applicants/$applicant_id/checks/$check_id";
+
+        if ($load_reports === true)
+        {
+            $url .= "?expand=reports";
+        }
+
+        $response = $this->client->request('GET', $url, [
+            'headers' => [
+                'Authorization' => "Token token=$this->authToken"
+            ]
+        ]);
+
+        $body = (string) ($response->getBody());
+        $check_json = json_decode($body, true);
+
+        if ($load_reports === true)
+        {
+            $reports = [];
+            $report_factory = new ReportFactory();
+
+            foreach ($check_json['reports'] as $report_data)
+            {
+                $report_id = $report_data['id'];
+                $report = $report_factory->createReport($report_data);
+                $reports[$report_id] = $report;
+            }
+        }
+
+        $check = new Check($check_json['id'],
+                           $check_json['created_at'],
+                           $check_json['href'],
+                           $check_json['type'],
+                           $check_json['status'],
+                           $check_json['result'],
+                           $reports);
+
+        return $check;
+    }
+
+	public function retrieveReport($check_id, $report_id)
+    {
+        $response = $this->client->request('GET', "/v1/checks/$check_id/checks/$report_id", [
+            'headers' => [
+                'Authorization' => "Token token=$this->authToken"
+            ]
+        ]);
+
+        $body = (string) ($response->getBody());
+        $report_json = json_decode($body, true);
+        $report_factory = new ReportFactory();
+        $report = $report_factory->createReport($report_json);
+        return $report;
+    }
+
 	private function formatFieldErrors($field_errors)
 	{
 		$fields = [];

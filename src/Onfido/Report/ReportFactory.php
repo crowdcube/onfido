@@ -32,7 +32,7 @@ class ReportFactory
 		$name       = array_key_exists('name', $data)       ? $data['name']       : null;
 		$created_at = array_key_exists('created_at', $data) ? $data['created_at'] : null;
 		$status     = array_key_exists('status', $data)     ? $data['status']     : null;
-		$result      = array_key_exists('result', $data)     ? $data['result']     : null;
+		$result      = array_key_exists('result', $data)    ? $data['result']     : null;
 
 		switch ($data['name']) {
 			case 'identity':
