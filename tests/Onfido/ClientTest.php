@@ -1,5 +1,7 @@
 <?php
 
+namespace Onfido\Test;
+
 use Onfido\Client;
 use Faker\Factory;
 

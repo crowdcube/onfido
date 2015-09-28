@@ -265,17 +265,16 @@ class Client
 		$applicant->setId($params['id']);
 		$applicant->setHref($params['href']);
 
-		 $applicant->setCreatedAt($params['created_at']);
-		 $applicant->setFirstName($params['first_name']); $applicant->setLastName($params['last_name']);
-		 $applicant->setDob($params['dob']);
-		 $applicant->setEmail($params['email']);
-		 $applicant->setTitle($params['title']);
-		 $applicant->setMiddleName($params['middle_name']);
-		 $applicant->setGender($params['gender']);
-		 $applicant->setTelephone($params['telephone']);
-		 $applicant->setMobile($params['mobile']);
-		 $applicant->setCountry($params['country']);
-
+		$applicant->setCreatedAt($params['created_at']);
+		$applicant->setFirstName($params['first_name']); $applicant->setLastName($params['last_name']);
+		$applicant->setDob($params['dob']);
+		$applicant->setEmail($params['email']);
+		$applicant->setTitle($params['title']);
+		$applicant->setMiddleName($params['middle_name']);
+		$applicant->setGender($params['gender']);
+		$applicant->setTelephone($params['telephone']);
+        $applicant->setMobile($params['mobile']);
+        $applicant->setCountry($params['country']);
 
 		if (empty($params['addresses']) === false)
 		{
