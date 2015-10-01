@@ -1,6 +1,6 @@
 <?php
 
-namespace Onfido;
+namespace Favor\Onfido;
 
 use InvalidArgumentException;
 

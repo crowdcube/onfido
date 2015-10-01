@@ -1,6 +1,6 @@
 <?php
 
-namespace Onfido\Report;
+namespace Favor\Onfido\Report;
 
 abstract class BaseReport
 {

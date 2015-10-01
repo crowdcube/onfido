@@ -1,16 +1,16 @@
 <?php
 
-namespace Onfido;
+namespace Favor\Onfido;
 
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Exception\ClientException;
 use InvalidArgumentException;
-use Onfido\Report\ReportFactory;
-use Onfido\Exception\ApplicantNotFoundException;
-use Onfido\Exception\ModelRetrievalException;
-use Onfido\Exception\InvalidRequestException;
-use Onfido\Exception\DuplicateApplicantCreationException;
+use Favor\Onfido\Report\ReportFactory;
+use Favor\Onfido\Exception\ApplicantNotFoundException;
+use Favor\Onfido\Exception\ModelRetrievalException;
+use Favor\Onfido\Exception\InvalidRequestException;
+use Favor\Onfido\Exception\DuplicateApplicantCreationException;
 
 class Client
 {
@@ -30,12 +30,12 @@ class Client
 	/**
 	 * Creates an applicant record in Onfido.
 	 *
-	 * @throws \Onfido\Exception\DuplicateApplicantCreationException when an appllicant with the same data exists.
-	 * @throws \Onfido\Exception\InvalidRequestException when the create request could not be processed
+	 * @param $params
 	 *
-	 * @param array $params An Array of fields to create the user.
+	 * @return \Favor\Onfido\Applicant
 	 *
-	 * @return Applicant The applicant model filled with the supplied data.
+	 * @throws \Favor\Onfido\Exception\DuplicateApplicantCreationException when an applicant with the same data exists.
+	 * @throws \Favor\Onfido\Exception\InvalidRequestException when the create request could not be processed
 	 */
 	public function createApplicant($params)
 	{
@@ -113,12 +113,12 @@ class Client
 	 * Creates a new Onfido\Applicant and loads it with data retrieved from the remote
 	 * data source.
 	 *
-	 * @throws \Onfido\Exception\ApplicantNotFoundException when the applicant with the ID cannot be found
-	 * @throws \Onfido\Exception\ModelRetrievalException when there was an error retrieving the applicant's data
+	 * @throws \Favor\Onfido\Exception\ApplicantNotFoundException when the applicant with the ID cannot be found
+	 * @throws \Favor\Onfido\Exception\ModelRetrievalException when there was an error retrieving the applicant's data
 	 *
 	 * @param string $applicant_id The ID of the applicant.
 	 *
-	 * @return \Onfido\Applicant The loaded applicant.
+	 * @return \Favor\Onfido\Applicant The loaded applicant.
 	 */
 	public function retrieveApplicant($applicant_id)
 	{
@@ -153,11 +153,11 @@ class Client
 	 * Runs an identity check for the supplied applicant.
 	 *
 	 * @throws \InvalidArgumentException if the applicant_id is null
-	 * @throws \Onfido\Exception\InvalidRequestException if the supplied data for the identity check is not valid
+	 * @throws \Favor\Onfido\Exception\InvalidRequestException if the supplied data for the identity check is not valid
 	 *
 	 * @param string $applicant_id The id of the applicant to run through an identity check
 	 *
-	 * @return \Onfido\Report\BaseReport The identity report result
+	 * @return \Favor\Onfido\Report\BaseReport The identity report result
 	 */
 	public function runIdentityCheck($applicant_id)
 	{

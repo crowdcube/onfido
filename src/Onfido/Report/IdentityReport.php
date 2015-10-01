@@ -1,6 +1,6 @@
 <?php
 
-namespace Onfido\Report;
+namespace Favor\Onfido\Report;
 
 class IdentityReport extends BaseReport
 {

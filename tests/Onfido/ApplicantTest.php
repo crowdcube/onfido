@@ -1,9 +1,9 @@
 <?php
 
-namespace Onfido\Test;
+namespace Favor\Onfido\Test;
 
-use Onfido\Applicant;
-use Onfido\Address;
+use Favor\Onfido\Applicant;
+use Favor\Onfido\Address;
 use Faker\Factory;
 
 class ApplicantTest extends \PHPUnit_Framework_TestCase

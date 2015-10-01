@@ -1,6 +1,6 @@
 <?php
 
-namespace Onfido\Exception;
+namespace Favor\Onfido\Exception;
 
 class InvalidRequestException extends \Exception
 {

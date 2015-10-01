@@ -1,8 +1,8 @@
 <?php
 
-namespace Onfido\Test;
+namespace Favor\Onfido\Test;
 
-use Onfido\Address;
+use Favor\Onfido\Address;
 use Faker\Factory;
 
 class AddressTest extends \PHPUnit_Framework_TestCase

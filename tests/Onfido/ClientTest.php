@@ -1,8 +1,8 @@
 <?php
 
-namespace Onfido\Test;
+namespace Favor\Onfido\Test;
 
-use Onfido\Client;
+use Favor\Onfido\Client;
 use Faker\Factory;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
@@ -10,7 +10,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	const ONFIDO_TOKEN = "test_R6me4f2LQnkSHHbSh9UpckuZg4LGcOsK";
 
 	/**
-	 * @expectedException Onfido\Exception\InvalidRequestException
+	 * @expectedException \Favor\Onfido\Exception\InvalidRequestException
 	 * @dataProvider invalidFirstNameProvider
 	 */
 	public function testCreateWithInvalidFirstName($first_name)
@@ -21,7 +21,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$applicant = $client->createApplicant($params);
-		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+		$this->assertInstanceOf('Favor\Onfido\Applicant', $applicant);
 	}
 
 	public function invalidFirstNameProvider()
@@ -33,7 +33,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException Onfido\Exception\InvalidRequestException
+	 * @expectedException \Favor\Onfido\Exception\InvalidRequestException
 	 * @dataProvider invalidLastNameProvider
 	 */
 	public function testCreateWithInvalidLastName($first_name, $last_name)
@@ -45,7 +45,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$applicant = $client->createApplicant($params);
-		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+		$this->assertInstanceOf('Favor\Onfido\Applicant', $applicant);
 	}
 
 	public function invalidLastNameProvider()
@@ -73,7 +73,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$applicant = $client->createApplicant($params);
-		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+		$this->assertInstanceOf('Favor\Onfido\Applicant', $applicant);
 	}
 
 	public function validTitleProvider()
@@ -88,7 +88,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException Onfido\Exception\InvalidRequestException
+	 * @expectedException \Favor\Onfido\Exception\InvalidRequestException
 	 * @dataProvider invalidTitleProvider
 	 */
 	public function testInvalidTitles($title)
@@ -103,7 +103,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$applicant = $client->createApplicant($params);
-		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+		$this->assertInstanceOf('Favor\Onfido\Applicant', $applicant);
 	}
 
 	public function invalidTitleProvider()
@@ -131,7 +131,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$applicant = $client->createApplicant($params);
-		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+		$this->assertInstanceOf('Favor\Onfido\Applicant', $applicant);
 	}
 
 	public function validGenderProvider()
@@ -146,7 +146,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException Onfido\Exception\InvalidRequestException
+	 * @expectedException \Favor\Onfido\Exception\InvalidRequestException
 	 * @dataProvider invalidGenderProvider
 	 */
 	public function testInvalidGenders($gender)
@@ -161,7 +161,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$applicant = $client->createApplicant($params);
-		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+		$this->assertInstanceOf('Favor\Onfido\Applicant', $applicant);
 	}
 
 	public function invalidGenderProvider()
@@ -190,7 +190,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$applicant = $client->createApplicant($params);
-		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+		$this->assertInstanceOf('Favor\Onfido\Applicant', $applicant);
 	}
 
 	public function validCountryProvider()
@@ -205,7 +205,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException Onfido\Exception\InvalidRequestException
+	 * @expectedException \Favor\Onfido\Exception\InvalidRequestException
 	 * @dataProvider invalidCountryProvider
 	 */
 	public function testInvalidCountries($country)
@@ -220,7 +220,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$applicant = $client->createApplicant($params);
-		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+		$this->assertInstanceOf('Favor\Onfido\Applicant', $applicant);
 	}
 
 	public function invalidCountryProvider()
@@ -248,7 +248,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$applicant = $client->createApplicant($params);
-		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+		$this->assertInstanceOf('Favor\Onfido\Applicant', $applicant);
 	}
 
 	public function validPhoneNumbersProvider()
@@ -281,7 +281,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$applicant = $client->createApplicant($params);
-		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+		$this->assertInstanceOf('Favor\Onfido\Applicant', $applicant);
 	}
 
 	public function validMobileNumbersProvider()
@@ -314,7 +314,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$applicant = $client->createApplicant($params);
-		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+		$this->assertInstanceOf('Favor\Onfido\Applicant', $applicant);
 	}
 
 	public function validDateOfBirthProvider()
@@ -332,7 +332,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @dataProvider invalidDateOfBirthProvider
-	 * @expectedException Onfido\Exception\InvalidRequestException
+	 * @expectedException \Favor\Onfido\Exception\InvalidRequestException
 	 */
 	public function testInvalidDatesOfBirth($dob)
 	{
@@ -346,12 +346,12 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$applicant = $client->createApplicant($params);
-		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+		$this->assertInstanceOf('Favor\Onfido\Applicant', $applicant);
 	}
 
 	public function invalidDateOfBirthProvider()
 	{
-		$faker = \Faker\Factory::create();
+		$faker = Factory::create();
 
 		return array(
 			array($faker->date('Y m d')),
@@ -374,7 +374,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$applicant = $client->createApplicant($params);
-		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+		$this->assertInstanceOf('Favor\Onfido\Applicant', $applicant);
 	}
 
 	public function validEmailProvider()
@@ -389,7 +389,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @dataProvider invalidEmailProvider
-	 * @expectedException Onfido\Exception\InvalidRequestException
+	 * @expectedException \Favor\Onfido\Exception\InvalidRequestException
 	 */
 	public function testInvalidEmails($email)
 	{
@@ -402,7 +402,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$applicant = $client->createApplicant($params);
-		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+		$this->assertInstanceOf('Favor\Onfido\Applicant', $applicant);
 	}
 
 	public function invalidEmailProvider()
@@ -428,7 +428,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$applicant = $client->createApplicant($params);
-		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+		$this->assertInstanceOf('Favor\Onfido\Applicant', $applicant);
 	}
 
 	public function validMiddleNameProvider()
@@ -465,11 +465,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$applicant = $client->createApplicant($params);
-		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+		$this->assertInstanceOf('Favor\Onfido\Applicant', $applicant);
 	}
 
 	/**
-	 * @expectedException Onfido\Exception\ApplicantNotFoundException
+	 * @expectedException \Favor\Onfido\Exception\ApplicantNotFoundException
 	 */
 	public function testApplicantRetrievalUnknownId()
 	{
@@ -509,7 +509,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		// Create the applicant on Onfido
 		$applicant = $client->createApplicant($params);
 
-		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+		$this->assertInstanceOf('Favor\Onfido\Applicant', $applicant);
 		$this->assertNotNull($applicant->getId());
 		$this->assertNotNull($applicant->getHref());
 		$this->assertNotNull($applicant->getCreatedAt());
@@ -528,7 +528,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$id = $applicant->getId();
 		$applicant = $client->retrieveApplicant($id);
 
-		$this->assertInstanceOf('Onfido\Applicant', $applicant);
+		$this->assertInstanceOf('Favor\Onfido\Applicant', $applicant);
 		$this->assertNotNull($applicant->getId());
 		$this->assertNotNull($applicant->getHref());
 		$this->assertNotNull($applicant->getCreatedAt());
@@ -545,7 +545,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException Onfido\Exception\InvalidRequestException
+	 * @expectedException \Favor\Onfido\Exception\InvalidRequestException
 	 *
 	 * Identity check requires at least one address and a date of birth
 	 */
@@ -605,11 +605,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$applicant = $client->createApplicant($params);
 
 		$identityCheckReport = $client->runIdentityCheck($applicant->getId());
-		$this->assertInstanceOf('Onfido\Report\IdentityReport', $identityCheckReport);
+		$this->assertInstanceOf('Favor\Onfido\Report\IdentityReport', $identityCheckReport);
 	}
 
 	/**
-	 * @expectedException Onfido\Exception\DuplicateApplicantCreationException
+	 * @expectedException \Favor\Onfido\Exception\DuplicateApplicantCreationException
 	 */
 	public function testCreateApplicantTwice()
 	{

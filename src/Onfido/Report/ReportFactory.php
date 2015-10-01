@@ -1,8 +1,6 @@
 <?php
 
-namespace Onfido\Report;
-
-use Onfido\Report\IdentityReport;
+namespace Favor\Onfido\Report;
 
 /**
  * A factory to create reports from the JSON returned from the Onfido API.
@@ -16,7 +14,7 @@ class ReportFactory
 	 * not a supported report type.
 	 * 
 	 * @param array $data An array containing the data to populate the report.
-	 * @return \Onfido\Report\BaseReport
+	 * @return \Favor\Onfido\Report\BaseReport
 	 */
 	public function createReport(array $data)
 	{
