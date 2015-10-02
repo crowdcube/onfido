@@ -27,7 +27,7 @@ composer install
 Almost all calls will go through the Onfido client to generate and update content.
 
 ```php
-$client = new Onfido\Client(ONFIDO_TOKEN);
+$client = new Onfido\RestClient(ONFIDO_TOKEN);
 ```
 
 ### Applicants

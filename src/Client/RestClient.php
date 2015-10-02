@@ -1,7 +1,9 @@
 <?php
 
-namespace Favor\Onfido;
+namespace Favor\Onfido\Client;
 
+use Favor\Onfido\Address;
+use Favor\Onfido\Applicant;
 use Favor\Onfido\Checks\Check;
 use Favor\Onfido\Report\IdentityReportAbstract;
 use GuzzleHttp\Client as GuzzleClient;
@@ -14,7 +16,7 @@ use Favor\Onfido\Exception\ModelRetrievalException;
 use Favor\Onfido\Exception\InvalidRequestException;
 use Favor\Onfido\Exception\DuplicateApplicantCreationException;
 
-class Client
+class RestClient
 {
 	protected $authToken;
 	protected $client;
