@@ -1,6 +1,8 @@
 <?php
 
-namespace Favor\Onfido;
+namespace Favor\Onfido\Checks;
+
+use Favor\Onfido\Report\AbstractBaseReport;
 
 class Check
 {
@@ -57,7 +59,7 @@ class Check
 		return $this->reports;
 	}
 
-	public function addReport(Report $report)
+	public function addReport(AbstractBaseReport $report)
 	{
 		$this->reports[] = $report;
 	}

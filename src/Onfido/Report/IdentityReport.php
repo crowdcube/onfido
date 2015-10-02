@@ -2,50 +2,60 @@
 
 namespace Favor\Onfido\Report;
 
-class IdentityReport extends BaseReport
+class IdentityReport extends AbstractBaseReport
 {
-	protected $ssn_result;
-	protected $dob_match_result;
-	protected $mortality_result;
-	protected $address_result;
+    protected $ssn_result;
+    protected $dob_match_result;
+    protected $mortality_result;
+    protected $address_result;
 
-	public function setAddressResult($result)
-	{
-		$this->address_result = $result;
-	}
+    public function getBreakdown()
+    {
+        return [
+            'ssn'           => $this->getSocialSecurityResult(),
+            'address'       => $this->getAddressResult(),
+            'date_of_birth' => $this->getDateOfBirthMatchResult(),
+            'mortality'     => $this->getMortalityResult(),
+        ];
+    }
 
-	public function getAddressResult()
-	{
-		return $this->address_result;
-	}
+    public function setAddressResult($result)
+    {
+        $this->address_result = $result;
+    }
 
-	public function setDateOfBirthMatchResult($result)
-	{
-		$this->dob_match_result = $result;
-	}
+    public function getAddressResult()
+    {
+        return $this->address_result;
+    }
 
-	public function getDateOfBirthMatchResult()
-	{
-		return $this->dob_match_result;
-	}
+    public function setDateOfBirthMatchResult($result)
+    {
+        $this->dob_match_result = $result;
+    }
 
-	public function setMortalityResult($result)
-	{
-		$this->mortality_result = $result;
-	}
+    public function getDateOfBirthMatchResult()
+    {
+        return $this->dob_match_result;
+    }
 
-	public function getMortalityResult()
-	{
-		return $this->mortality_result;
-	}
+    public function setMortalityResult($result)
+    {
+        $this->mortality_result = $result;
+    }
 
-	public function setSocialSecurityResult($result)
-	{
-		$this->ssn_result = $result;
-	}
+    public function getMortalityResult()
+    {
+        return $this->mortality_result;
+    }
 
-	public function getSocialSecurityResult()
-	{
-		return $this->ssn_result;
-	}
+    public function setSocialSecurityResult($result)
+    {
+        $this->ssn_result = $result;
+    }
+
+    public function getSocialSecurityResult()
+    {
+        return $this->ssn_result;
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace Favor\Onfido\Report;
 
-abstract class BaseReport
+abstract class AbstractBaseReport
 {
 	protected $id;
 	protected $href;
@@ -13,7 +13,7 @@ abstract class BaseReport
 	protected $properties;
 
 	/**
-	 * Base constructor for BaseReport.
+	 * Base constructor for AbstractBaseReport.
 	 * @param string $id         The ID of the report.
 	 * @param string $href       The URL of the report.
 	 * @param string $name       The name (type) of the report.
@@ -109,4 +109,6 @@ abstract class BaseReport
 	{
 		return $this->properties;
 	}
+
+	abstract public function getBreakdown();
 }
