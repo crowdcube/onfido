@@ -2,7 +2,8 @@
 
 namespace Favor\Onfido;
 
-use Favor\Onfido\Report\IdentityReport;
+use Favor\Onfido\Checks\Check;
+use Favor\Onfido\Report\IdentityReportAbstract;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Exception\ClientException;
@@ -158,7 +159,7 @@ class Client
 	 *
 	 * @param string $applicant_id The id of the applicant to run through an identity check
 	 *
-	 * @return \Favor\Onfido\Report\IdentityReport The identity report result
+	 * @return \Favor\Onfido\Report\IdentityReportAbstract The identity report result
 	 */
 	public function runIdentityCheck($applicant_id)
 	{
@@ -214,7 +215,7 @@ class Client
 		$body_json = json_decode((string) $response->getBody(), true);
 		$report_info = $body_json['reports'][0];
 
-		$identity_report = new IdentityReport(
+		$identity_report = new IdentityReportAbstract(
 			$report_info['id'],
 			$report_info['href'],
 			$report_info['name'],
