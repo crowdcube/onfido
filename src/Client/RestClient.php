@@ -306,46 +306,24 @@ class RestClient
 
 	private function formatFieldErrors($field_errors)
 	{
-		$fields = [];
+		$errors = [];
+		$this->formatFieldErrorsHelper($errors, $field_errors);
+		return $errors;
+	}
 
-		foreach ($field_errors as $field => $errors_array)
+	private function formatFieldErrorsHelper(&$errors, $field_errors)
+	{
+		foreach ($field_errors as $field => $error)
 		{
-			$val_errors = $errors_array[0];
-
-			if (is_array($val_errors))
+			if (is_array($error))
 			{
-				foreach ($val_errors as $val_field => $error)
-				{
-					if (is_array($error))
-					{
-						for ($i=0; $i < count($error); $i++)
-						{
-							if (is_array($error[$i]))
-							{
-								for ($j = 0; $j < count($error[$i]); $j++)
-								{
-									$fields[] = $field . ' ' . $error[$i][$j];
-								}
-							}
-							else
-							{
-								$fields[] = $field . ' ' . $error;
-							}
-						}
-					}
-					else
-					{
-						$fields[] = $field . ' ' . $error;
-					}
-				}
+				$this->formatFieldErrorsHelper($errors, $error);
 			}
 			else
 			{
-				$fields[] = $field . ' ' . $val_errors;
+				$errors[] = $field . ' ' . $error;
 			}
 		}
-
-		return $fields;
 	}
 
 	private function populateApplicantWithResponse(Applicant $applicant, $params)
