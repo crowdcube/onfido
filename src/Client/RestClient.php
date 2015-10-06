@@ -140,7 +140,7 @@ class RestClient
 		}
 		catch (TransferException $e)
 		{
-			throw new ModelRetrievalException('An error occured while retrieving the remote resource.', $e->getCode(), $e);
+			throw new ModelRetrievalException('An error occurred while retrieving the remote resource.', $e->getCode(), $e);
 		}
 
 		$body = $response->getBody();
@@ -306,24 +306,29 @@ class RestClient
 
 	private function formatFieldErrors($field_errors)
 	{
-		$errors = [];
-		$this->formatFieldErrorsHelper($errors, $field_errors);
+        $errors = [];
+
+        foreach ($field_errors as $field => $field_errors)
+        {
+            $this->formatFieldErrorsHelper($errors, $field, $field_errors);
+        }
+
 		return $errors;
 	}
 
-	private function formatFieldErrorsHelper(&$errors, $field_errors)
+	private function formatFieldErrorsHelper(&$errors, $field, $field_errors)
 	{
-		foreach ($field_errors as $field => $error)
-		{
-			if (is_array($error))
-			{
-				$this->formatFieldErrorsHelper($errors, $error);
-			}
-			else
-			{
-				$errors[] = $field . ' ' . $error;
-			}
-		}
+		if (is_array($field_errors))
+        {
+            foreach ($field_errors as $field_error)
+            {
+                $this->formatFieldErrorsHelper($errors, $field, $field_error);
+            }
+        }
+        else
+        {
+            $errors[] = $field . ' ' . $field_errors;
+        }
 	}
 
 	private function populateApplicantWithResponse(Applicant $applicant, $params)
