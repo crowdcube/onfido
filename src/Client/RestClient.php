@@ -87,7 +87,7 @@ class RestClient
 					}
 					else
 					{
-						throw new InvalidRequestException($fields, 'Could not save applicant. ' . implode($fields, ' '), $e->getCode(), $e);
+						throw new InvalidRequestException($fields, 'Could not save applicant. ' . implode(' ', $fields), $e->getCode(), $e);
 					}
 				}
 				else
@@ -199,7 +199,7 @@ class RestClient
 				if ($error['type'] == 'validation_error')
 				{
 					$fields = $this->formatFieldErrors($error['fields']);
-					throw new InvalidRequestException($fields, 'Could not run identity check. ' . implode($fields, ' '), $e->getCode(), $e);
+					throw new InvalidRequestException($fields, 'Could not run identity check. ' . implode(' ', $fields), $e->getCode(), $e);
 				}
 				else
 				{
