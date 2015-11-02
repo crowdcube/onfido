@@ -234,9 +234,17 @@ class RestClient
 
 		if (array_key_exists('breakdown', $report_info))
 		{
-			$identity_report->setSocialSecurityResult($report_info['breakdown']['ssn']['result']);
-			$identity_report->setMortalityResult($report_info['breakdown']['mortality']['result']);
-			$identity_report->setDateOfBirthMatchResult($report_info['breakdown']['date_of_birth']['result']);
+            if (array_key_exists('ssn', $report_info['breakdown'])) {
+                $identity_report->setSocialSecurityResult($report_info['breakdown']['ssn']['result']);
+            }
+
+            if (array_key_exists('mortality', $report_info['breakdown'])) {
+                $identity_report->setMortalityResult($report_info['breakdown']['mortality']['result']);
+            }
+
+            if (array_key_exists('date_of_birth', $report_info['breakdown'])) {
+                $identity_report->setDateOfBirthMatchResult($report_info['breakdown']['date_of_birth']['result']);
+            }
 
 			if (array_key_exists('address', $report_info['breakdown']))
 			{
