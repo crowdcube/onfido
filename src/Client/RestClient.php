@@ -273,26 +273,23 @@ class RestClient
         $body = (string) ($response->getBody());
         $check_json = json_decode($body, true);
 
+        $check = new Check($check_json['id'],
+            $check_json['created_at'],
+            $check_json['href'],
+            $check_json['type'],
+            $check_json['status'],
+            $check_json['result']);
+
         if ($load_reports === true)
         {
-            $reports = [];
             $report_factory = new ReportFactory();
 
             foreach ($check_json['reports'] as $report_data)
             {
-                $report_id = $report_data['id'];
                 $report = $report_factory->createReport($report_data);
-                $reports[$report_id] = $report;
+                $check->addReport($report);
             }
         }
-
-        $check = new Check($check_json['id'],
-                           $check_json['created_at'],
-                           $check_json['href'],
-                           $check_json['type'],
-                           $check_json['status'],
-                           $check_json['result'],
-                           $reports);
 
         return $check;
     }
