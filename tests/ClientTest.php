@@ -355,8 +355,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
 		return array(
 			array($faker->date('Y m d')),
-			array($faker->date('Y/24/12')),
-			array('')
+			array($faker->date('Y/24/12'))
 		);
 	}
 
@@ -606,40 +605,5 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
 		$identityCheckReport = $client->runIdentityCheck($applicant->getId());
 		$this->assertInstanceOf('Favor\Onfido\Report\IdentityReport', $identityCheckReport);
-	}
-
-	/**
-	 * @expectedException \Favor\Onfido\Exception\DuplicateApplicantCreationException
-	 */
-	public function testCreateApplicantTwice()
-	{
-		$faker = Factory::create();
-		$title = 'Mr';
-		$first_name = $faker->firstName;
-		$last_name = $faker->lastName;
-		$middle_name = $faker->firstName;
-		$email = $faker->email;
-		$gender = 'Male';
-		$dob = '1980-11-23';
-		$telephone = '11234567890';
-		$mobile = '10987654321';
-		$country = 'usa';
-
-		$params = array(
-			'title' => $title,
-			'first_name' => $first_name,
-			'last_name' => $last_name,
-			'middle_name' => $middle_name,
-			'email' => $email,
-			'gender' => $gender,
-			'dob' => $dob,
-			'telephone' => $telephone,
-			'mobile' => $mobile,
-			'country' => $country
-		);
-
-		$client = new RestClient(self::ONFIDO_TOKEN, false);
-		$applicant = $client->createApplicant($params);
-		$applicant2 = $client->createApplicant($params);
 	}
 }
